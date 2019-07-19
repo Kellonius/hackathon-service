@@ -25,5 +25,6 @@ namespace Hackathon_DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<user> users { get; set; }
     }
 }

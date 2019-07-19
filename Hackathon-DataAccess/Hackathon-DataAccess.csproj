@@ -66,6 +66,9 @@
       <DependentUpon>HackathonDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="user.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="HackathonDataModel.edmx">
