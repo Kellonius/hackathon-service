@@ -19,6 +19,7 @@ namespace Hackathon_Service.Repositories
         {
             userRepository = new UserRepository();
         }
+
         public Patient checkIfPatientExists(int userId)
         {
             using (var context = new HackathonEntities())
@@ -92,26 +93,68 @@ namespace Hackathon_Service.Repositories
             return response;
         }
 
+        public List<PatientDataResponse> SearchPatients(string terms)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var response = new List<PatientDataResponse>();
+
+                var patientInfo = context.Patients.Where(p =>
+                    (p.SocialSecurity != null && p.SocialSecurity.ToLower().Contains(terms)) ||
+                    (p.SocialSecurity != null && p.SocialSecurity.Replace("-", "").ToLower().Contains(terms)) ||
+                    (p.user.first_name != null && p.user.first_name.ToLower().Contains(terms)) ||
+                    (p.user.last_name != null && p.user.last_name.ToLower().Contains(terms)) ||
+                    (p.user.email != null && p.user.email.ToLower().Contains(terms))
+                ).ToList();
+                var patientScripts = patientInfo.Select(pi => getPatientScripts(pi.PatientId)).ToList();
+                for (var i = 0; i < patientInfo.Count; ++i)
+                {
+                    var pi = patientInfo[i];
+                    var ps = patientScripts[i];
+                    var user = pi.user;
+
+                    response.Add(
+                        new PatientDataResponse()
+                        {
+                            id = user.id,
+                            firstName = user.first_name,
+                            lastName = user.last_name,
+                            email = user.email,
+                            AtRisk = pi.AtRisk.Value ? "Yes" : "No",
+                            DOB = pi.DOB.Value.ToString("MM-dd-yyyy"),
+                            Gender = pi.Gender,
+                            Scripts = ps
+                        }
+                    );
+                }
+
+                return response;
+            }
+        }
+
         public List<ScriptModel> getPatientScripts(int? patientId)
         {
             using (var context = new HackathonEntities())
             {
                 var scriptIds = context.Scripts.Where(x => x.PatientId == patientId).Select(x => x.ScriptId);
                 var scripts = new List<ScriptModel>();
-                foreach(var id in scriptIds)
+                foreach (var id in scriptIds)
                 {
                     var script = context.Scripts.FirstOrDefault(x => x.ScriptId == id);
                     var medicalProfessional = context.MedicalProfessionals.FirstOrDefault(x => x.MPId == script.MPId);
                     var medicalProfessionalUser = context.users.FirstOrDefault(x => x.id == medicalProfessional.UserId);
                     var medication = context.Medications.FirstOrDefault(x => x.MedicationId == script.MedicationId);
-                    scripts.Add(new ScriptModel(script) {
-                        PrescribedBy = "Dr. " + medicalProfessionalUser.first_name + " " + medicalProfessionalUser.last_name,
+                    scripts.Add(new ScriptModel(script)
+                    {
+                        PrescribedBy = "Dr. " + medicalProfessionalUser.first_name + " " +
+                                       medicalProfessionalUser.last_name,
                         Phone = medicalProfessional.Phone,
                         Email = medicalProfessional.Email,
                         MedicationGenericName = medication.GenericName,
                         MedicationMedicalName = medication.MedicalName
                     });
                 }
+
                 context.Dispose();
                 return scripts;
             }

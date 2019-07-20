@@ -91,6 +91,7 @@ namespace Hackathon_Service.Repositories
                     var result = new PatientDataResponse()
                     {
                         id = user.id,
+                        PatientId = patient.PatientId,
                         firstName = user.first_name,
                         lastName = user.last_name,
                         email = user.email,
@@ -110,15 +111,17 @@ namespace Hackathon_Service.Repositories
 
             using (var context = new HackathonEntities())
             {
-                var patientIdList = context.MpToPatients.Where(x => x.MPId != medicalProfessionalId).Select(x => x.PatientId).ToList();
+                var currentPatientIdList = context.MpToPatients.Where(x => x.MPId == medicalProfessionalId).Select(x => x.PatientId).ToList();
+                var newPatientIdList = context.Patients.Where(x => !currentPatientIdList.Contains(x.PatientId)).Select(x => x.PatientId).ToList();
                 var results = new List<PatientDataResponse>();
-                foreach (var patientId in patientIdList)
+                foreach (var patientId in newPatientIdList)
                 {
                     var patient = patientRepository.getPatientDataFromId(patientId);
                     var user = userRepository.getUserInfoFromId(patient.UserId);
                     var result = new PatientDataResponse()
                     {
                         id = user.id,
+                        PatientId = patient.PatientId,
                         firstName = user.first_name,
                         lastName = user.last_name,
                         email = user.email,

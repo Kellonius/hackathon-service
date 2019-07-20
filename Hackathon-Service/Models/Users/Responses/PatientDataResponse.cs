@@ -8,6 +8,7 @@ namespace Hackathon_Service.Models.Users.Responses
 {
     public class PatientDataResponse : UserResponse
     {
+        public int PatientId { get; set; }
         public string Gender { get; set; }
         public string DOB { get; set; }
         public string AtRisk { get; set; }

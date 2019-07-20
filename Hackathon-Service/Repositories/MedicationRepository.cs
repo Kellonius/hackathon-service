@@ -40,12 +40,31 @@ namespace Hackathon_Service.Repositories
             }
         }
 
-        public List<PatientScript> GetIncomingPrescriptions()
+        private void ReconcilePharmacyEventsToScripts()
         {
             using (var context = new HackathonEntities())
             {
+                var scriptIds = context.Scripts.Select(s => s.ScriptId)
+                    .Where(s => !context.PharmacyEvents.Any(pe => pe.ScriptId == s)).ToList();
+                context.PharmacyEvents.AddRange(scriptIds.Select(s => new PharmacyEvent
+                {
+                    Id = 0,
+                    DateFilled = null,
+                    DatePickedUp = null,
+                    ScriptId = s
+                }));
+                context.SaveChanges();
+            }
+        }
+
+        public List<PatientScript> GetIncomingPrescriptions()
+        {
+            ReconcilePharmacyEventsToScripts();
+            using (var context = new HackathonEntities())
+            {
                 return (from s in context.Scripts
-                        where s.MPId != null && s.DateFilled == null
+                        join pe in context.PharmacyEvents on s.ScriptId equals pe.ScriptId
+                        where s.MPId != null && s.DateFilled == null && pe.DateFilled == null
                         select new
                         {
                             Script = s,
@@ -68,10 +87,13 @@ namespace Hackathon_Service.Repositories
 
         public List<PatientScript> GetOutgoingPrescriptions()
         {
+            ReconcilePharmacyEventsToScripts();
             using (var context = new HackathonEntities())
             {
                 return (from s in context.Scripts
-                        where s.MPId != null && s.DateFilled != null && s.DatePickedUp == null
+                        join pe in context.PharmacyEvents on s.ScriptId equals pe.ScriptId
+                        where s.MPId != null && s.DateFilled != null && s.DatePickedUp == null &&
+                              pe.DateFilled != null && pe.DatePickedUp == null
                         select new
                         {
                             Script = s,
@@ -104,8 +126,10 @@ namespace Hackathon_Service.Repositories
         {
             using (var context = new HackathonEntities())
             {
-                context.Scripts.Where(s => prescriptionIds.Contains(s.ScriptId))
+                context.PharmacyEvents.Where(s => prescriptionIds.Contains(s.ScriptId))
                     .ForEach(s => s.DateFilled = DateTime.Now);
+//                context.Scripts.Where(s => prescriptionIds.Contains(s.ScriptId))
+//                    .ForEach(s => s.DateFilled = DateTime.Now);
                 context.SaveChanges();
             }
         }
@@ -114,7 +138,7 @@ namespace Hackathon_Service.Repositories
         {
             using (var context = new HackathonEntities())
             {
-                context.Scripts.Where(s => prescriptionIds.Contains(s.ScriptId))
+                context.PharmacyEvents.Where(s => prescriptionIds.Contains(s.ScriptId))
                     .ForEach(s =>
                     {
                         if (s.DateFilled == null)
@@ -124,6 +148,16 @@ namespace Hackathon_Service.Repositories
 
                         s.DatePickedUp = DateTime.Now;
                     });
+//                context.Scripts.Where(s => prescriptionIds.Contains(s.ScriptId))
+//                    .ForEach(s =>
+//                    {
+//                        if (s.DateFilled == null)
+//                        {
+//                            s.DateFilled = DateTime.Now;
+//                        }
+//
+//                        s.DatePickedUp = DateTime.Now;
+//                    });
                 context.SaveChanges();
             }
         }
