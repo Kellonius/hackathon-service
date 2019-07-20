@@ -25,5 +25,13 @@ namespace Hackathon_Service.Repositories
                 return context.Scripts.Where(s => s.PatientId == patientid && s.MedicationId == medicationId).ToList();
             }
         }
+
+        public List<Script> GetPrescriptions()
+        {
+            using (var context = new HackathonEntities())
+            {
+                return context.Scripts.ToList();
+            }
+        }
     }
 }
