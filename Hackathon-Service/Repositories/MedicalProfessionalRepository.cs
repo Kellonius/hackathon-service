@@ -91,6 +91,7 @@ namespace Hackathon_Service.Repositories
                     var result = new PatientDataResponse()
                     {
                         id = user.id,
+                        PatientId = patient.PatientId,
                         firstName = user.first_name,
                         lastName = user.last_name,
                         email = user.email,
@@ -119,6 +120,7 @@ namespace Hackathon_Service.Repositories
                     var result = new PatientDataResponse()
                     {
                         id = user.id,
+                        PatientId = patient.PatientId,
                         firstName = user.first_name,
                         lastName = user.last_name,
                         email = user.email,
