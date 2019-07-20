@@ -44,6 +44,11 @@
       <End Role="Pharmacy" EntitySet="Pharmacies" />
       <End Role="Script" EntitySet="Scripts" />
     </AssociationSet>
+    <EntitySet Name="PharmacyEvents" EntityType="hackathonModel.PharmacyEvent" />
+    <AssociationSet Name="FK__PharmacyE__Scrip__367C1819" Association="hackathonModel.FK__PharmacyE__Scrip__367C1819">
+      <End Role="Script" EntitySet="Scripts" />
+      <End Role="PharmacyEvent" EntitySet="PharmacyEvents" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="user">
     <Key>
@@ -136,6 +141,7 @@
     <NavigationProperty Name="Medication" Relationship="hackathonModel.FK__Scripts__Medicat__6FE99F9F" FromRole="Script" ToRole="Medication" />
     <NavigationProperty Name="Patient" Relationship="hackathonModel.FK__Scripts__Patient__6EF57B66" FromRole="Script" ToRole="Patient" />
     <NavigationProperty Name="Pharmacy" Relationship="hackathonModel.FK__Scripts__PharmId__70DDC3D8" FromRole="Script" ToRole="Pharmacy" />
+    <NavigationProperty Name="PharmacyEvents" Relationship="hackathonModel.FK__PharmacyE__Scrip__367C1819" FromRole="Script" ToRole="PharmacyEvent" />
   </EntityType>
   <Association Name="FK__MedicalPr__UserI__68487DD7">
     <End Type="hackathonModel.user" Role="user" Multiplicity="0..1" />
@@ -242,6 +248,28 @@
       </Principal>
       <Dependent Role="Script">
         <PropertyRef Name="PharmId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PharmacyEvent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ScriptId" Type="Int32" Nullable="false" />
+    <Property Name="DateFilled" Type="DateTime" Precision="2" />
+    <Property Name="DatePickedUp" Type="DateTime" Precision="2" />
+    <NavigationProperty Name="Script" Relationship="hackathonModel.FK__PharmacyE__Scrip__367C1819" FromRole="PharmacyEvent" ToRole="Script" />
+  </EntityType>
+  <Association Name="FK__PharmacyE__Scrip__367C1819">
+    <End Type="hackathonModel.Script" Role="Script" Multiplicity="1" />
+    <End Type="hackathonModel.PharmacyEvent" Role="PharmacyEvent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Script">
+        <PropertyRef Name="ScriptId" />
+      </Principal>
+      <Dependent Role="PharmacyEvent">
+        <PropertyRef Name="ScriptId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

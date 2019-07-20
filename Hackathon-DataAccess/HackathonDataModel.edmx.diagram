@@ -21,6 +21,8 @@
         <AssociationConnector Association="hackathonModel.FK__Scripts__Patient__6EF57B66" />
         <AssociationConnector Association="hackathonModel.FK__Pharmacy__UserId__619B8048" />
         <AssociationConnector Association="hackathonModel.FK__Scripts__PharmId__70DDC3D8" />
+        <EntityTypeShape EntityType="hackathonModel.PharmacyEvent" Width="1.5" PointX="7.5" PointY="8" />
+        <AssociationConnector Association="hackathonModel.FK__PharmacyE__Scrip__367C1819" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -46,6 +46,15 @@
     <Property Name="Location" Type="nvarchar(max)" />
     <Property Name="Name" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="PharmacyEvents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScriptId" Type="int" Nullable="false" />
+    <Property Name="DateFilled" Type="datetime2" Precision="2" />
+    <Property Name="DatePickedUp" Type="datetime2" Precision="2" />
+  </EntityType>
   <EntityType Name="Scripts">
     <Key>
       <PropertyRef Name="ScriptId" />
@@ -134,6 +143,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__PharmacyE__Scrip__367C1819">
+    <End Role="Scripts" Type="Self.Scripts" Multiplicity="1" />
+    <End Role="PharmacyEvents" Type="Self.PharmacyEvents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Scripts">
+        <PropertyRef Name="ScriptId" />
+      </Principal>
+      <Dependent Role="PharmacyEvents">
+        <PropertyRef Name="ScriptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Scripts__Medicat__30C33EC3">
     <End Role="Medication" Type="Self.Medication" Multiplicity="0..1" />
     <End Role="Scripts" Type="Self.Scripts" Multiplicity="*" />
@@ -188,6 +209,7 @@
     <EntitySet Name="MpToPatient" EntityType="Self.MpToPatient" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pharmacy" EntityType="Self.Pharmacy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PharmacyEvents" EntityType="Self.PharmacyEvents" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Scripts" EntityType="Self.Scripts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__MedicalPr__UserI__29221CFB" Association="Self.FK__MedicalPr__UserI__29221CFB">
@@ -209,6 +231,10 @@
     <AssociationSet Name="FK__Pharmacy__UserId__2645B050" Association="Self.FK__Pharmacy__UserId__2645B050">
       <End Role="users" EntitySet="users" />
       <End Role="Pharmacy" EntitySet="Pharmacy" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PharmacyE__Scrip__367C1819" Association="Self.FK__PharmacyE__Scrip__367C1819">
+      <End Role="Scripts" EntitySet="Scripts" />
+      <End Role="PharmacyEvents" EntitySet="PharmacyEvents" />
     </AssociationSet>
     <AssociationSet Name="FK__Scripts__Medicat__30C33EC3" Association="Self.FK__Scripts__Medicat__30C33EC3">
       <End Role="Medication" EntitySet="Medication" />

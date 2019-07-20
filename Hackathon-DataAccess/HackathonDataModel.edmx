@@ -51,6 +51,15 @@
           <Property Name="Location" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="PharmacyEvents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScriptId" Type="int" Nullable="false" />
+          <Property Name="DateFilled" Type="datetime2" Precision="2" />
+          <Property Name="DatePickedUp" Type="datetime2" Precision="2" />
+        </EntityType>
         <EntityType Name="Scripts">
           <Key>
             <PropertyRef Name="ScriptId" />
@@ -139,6 +148,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__PharmacyE__Scrip__367C1819">
+          <End Role="Scripts" Type="Self.Scripts" Multiplicity="1" />
+          <End Role="PharmacyEvents" Type="Self.PharmacyEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scripts">
+              <PropertyRef Name="ScriptId" />
+            </Principal>
+            <Dependent Role="PharmacyEvents">
+              <PropertyRef Name="ScriptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Scripts__Medicat__30C33EC3">
           <End Role="Medication" Type="Self.Medication" Multiplicity="0..1" />
           <End Role="Scripts" Type="Self.Scripts" Multiplicity="*" />
@@ -193,6 +214,7 @@
           <EntitySet Name="MpToPatient" EntityType="Self.MpToPatient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pharmacy" EntityType="Self.Pharmacy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PharmacyEvents" EntityType="Self.PharmacyEvents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Scripts" EntityType="Self.Scripts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__MedicalPr__UserI__29221CFB" Association="Self.FK__MedicalPr__UserI__29221CFB">
@@ -214,6 +236,10 @@
           <AssociationSet Name="FK__Pharmacy__UserId__2645B050" Association="Self.FK__Pharmacy__UserId__2645B050">
             <End Role="users" EntitySet="users" />
             <End Role="Pharmacy" EntitySet="Pharmacy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PharmacyE__Scrip__367C1819" Association="Self.FK__PharmacyE__Scrip__367C1819">
+            <End Role="Scripts" EntitySet="Scripts" />
+            <End Role="PharmacyEvents" EntitySet="PharmacyEvents" />
           </AssociationSet>
           <AssociationSet Name="FK__Scripts__Medicat__30C33EC3" Association="Self.FK__Scripts__Medicat__30C33EC3">
             <End Role="Medication" EntitySet="Medication" />
@@ -279,6 +305,11 @@
           <AssociationSet Name="FK__Scripts__PharmId__70DDC3D8" Association="hackathonModel.FK__Scripts__PharmId__70DDC3D8">
             <End Role="Pharmacy" EntitySet="Pharmacies" />
             <End Role="Script" EntitySet="Scripts" />
+          </AssociationSet>
+          <EntitySet Name="PharmacyEvents" EntityType="hackathonModel.PharmacyEvent" />
+          <AssociationSet Name="FK__PharmacyE__Scrip__367C1819" Association="hackathonModel.FK__PharmacyE__Scrip__367C1819">
+            <End Role="Script" EntitySet="Scripts" />
+            <End Role="PharmacyEvent" EntitySet="PharmacyEvents" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="user">
@@ -372,6 +403,7 @@
           <NavigationProperty Name="Medication" Relationship="hackathonModel.FK__Scripts__Medicat__6FE99F9F" FromRole="Script" ToRole="Medication" />
           <NavigationProperty Name="Patient" Relationship="hackathonModel.FK__Scripts__Patient__6EF57B66" FromRole="Script" ToRole="Patient" />
           <NavigationProperty Name="Pharmacy" Relationship="hackathonModel.FK__Scripts__PharmId__70DDC3D8" FromRole="Script" ToRole="Pharmacy" />
+          <NavigationProperty Name="PharmacyEvents" Relationship="hackathonModel.FK__PharmacyE__Scrip__367C1819" FromRole="Script" ToRole="PharmacyEvent" />
         </EntityType>
         <Association Name="FK__MedicalPr__UserI__68487DD7">
           <End Type="hackathonModel.user" Role="user" Multiplicity="0..1" />
@@ -481,6 +513,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PharmacyEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScriptId" Type="Int32" Nullable="false" />
+          <Property Name="DateFilled" Type="DateTime" Precision="2" />
+          <Property Name="DatePickedUp" Type="DateTime" Precision="2" />
+          <NavigationProperty Name="Script" Relationship="hackathonModel.FK__PharmacyE__Scrip__367C1819" FromRole="PharmacyEvent" ToRole="Script" />
+        </EntityType>
+        <Association Name="FK__PharmacyE__Scrip__367C1819">
+          <End Type="hackathonModel.Script" Role="Script" Multiplicity="1" />
+          <End Type="hackathonModel.PharmacyEvent" Role="PharmacyEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Script">
+              <PropertyRef Name="ScriptId" />
+            </Principal>
+            <Dependent Role="PharmacyEvent">
+              <PropertyRef Name="ScriptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -565,6 +619,16 @@
                 <ScalarProperty Name="MedicationId" ColumnName="MedicationId" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="ScriptId" ColumnName="ScriptId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PharmacyEvents">
+            <EntityTypeMapping TypeName="hackathonModel.PharmacyEvent">
+              <MappingFragment StoreEntitySet="PharmacyEvents">
+                <ScalarProperty Name="DatePickedUp" ColumnName="DatePickedUp" />
+                <ScalarProperty Name="DateFilled" ColumnName="DateFilled" />
+                <ScalarProperty Name="ScriptId" ColumnName="ScriptId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
