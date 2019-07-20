@@ -17,11 +17,11 @@ namespace Hackathon_Service.Controllers
     [RoutePrefix("Users")]
     public class UserController : ApiController
     {
-        private UserRespository userRespository;
+        private UserRepository userRespository;
         
         public UserController()
         {
-            userRespository = new UserRespository();
+            userRespository = new UserRepository();
         }
         
         [Route("CreateUser")]

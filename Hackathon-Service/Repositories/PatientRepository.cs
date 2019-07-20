@@ -5,11 +5,18 @@ using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Hackathon_Service.Models.Users.Responses;
 
 namespace Hackathon_Service.Repositories
 {
-    public class PatientRespository
+    public class PatientRepository
     {
+        private UserRepository userRepository;
+
+        public PatientRepository()
+        {
+            userRepository = new UserRepository();
+        }
         public Patient checkIfPatientExists(int userId)
         {
             using (var context = new HackathonEntities())
@@ -39,10 +46,26 @@ namespace Hackathon_Service.Repositories
         {
             using (var context = new HackathonEntities())
             {
-                var user = context.Patients.FirstOrDefault(x => x.UserId == userId);
+                var patient = context.Patients.FirstOrDefault(x => x.UserId == userId);
                 context.Dispose();
-                return user;
+                return patient;
             }
+        }
+
+        public PatientDataResponse getAllPatientData(string userEmail)
+        {
+            var user = userRepository.getUserInfo(userEmail);
+            var patientInfo = getPatientInfo(user.id);
+            var response = new PatientDataResponse()
+            {
+                id = user.id,
+                firstName = user.first_name,
+                lastName = user.last_name,
+                email = user.email,
+                DOB = patientInfo.DOB,
+                Gender = patientInfo.Gender
+            };
+            return response;
         }
     }
 }

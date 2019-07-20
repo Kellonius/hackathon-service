@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Hackathon_Service.Repositories
 {
-    public class UserRespository
+    public class UserRepository
     {
         public user checkIfUserExists(string email)
         {

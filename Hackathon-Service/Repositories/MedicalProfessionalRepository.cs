@@ -10,12 +10,12 @@ namespace Hackathon_Service.Repositories
 {
     public class MedicalProfessionalRepository
     {
-        private UserRespository userRespository;
-        private PatientRespository patientRepository;
+        private UserRepository userRespository;
+        private PatientRepository patientRepository;
         public MedicalProfessionalRepository()
         {
-            userRespository = new UserRespository();
-            patientRepository = new PatientRespository();
+            userRespository = new UserRepository();
+            patientRepository = new PatientRepository();
         }
 
         public void CreateMedicalProfessional(int userId)

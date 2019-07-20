@@ -15,53 +15,44 @@ using Hackathon_Service.Models.Epic;
 namespace Hackathon_Service.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("MedicalProfessionals")]
-    public class MedicalProfessionalController : ApiController
+    [RoutePrefix("Patient")]
+    public class PatientController : ApiController
     {
         private UserRepository userRespository;
-        private MedicalProfessionalRepository medicalProfessionalRepository;
+        private PatientRepository patientRepository;
 
-        public MedicalProfessionalController()
+        public PatientController()
         {
             userRespository = new UserRepository();
-            medicalProfessionalRepository = new MedicalProfessionalRepository();
+            patientRepository = new PatientRepository();
         }
 
-        [Route("CreateMedicalProfessional")]
-        public void createMedicalProfessional(int userId)
+        [HttpGet]
+        [Route("GetPatientData")]
+        public PatientDataResponse GetPatientData(string userEmail)
         {
-            medicalProfessionalRepository.CreateMedicalProfessional(userId);
+            return patientRepository.getAllPatientData(userEmail);
         }
+        
 
+        //[Route("CreatePatientFromExistingUser")]
+        //public void createPatient(int userId)
+        //{
+        //    var response = new HttpResponseMessage();
+        //    try
+        //    {
 
-        [Route("CreatePatient")]
-        public void createPatient(PatientCreationRequest patientRequest)
-        {
-            var response = new HttpResponseMessage();
-            try
-            {
-
-                using (var context = new HackathonEntities())
-                {
-                    var exists = userRespository.checkIfUserExists(patientRequest.email);
-
-                    if (exists != null && exists.email.Length > 0)
-                    {
-                        response = Request.CreateErrorResponse(HttpStatusCode.BadRequest,
-                            "An account with this email already exists.");
-                        throw new HttpResponseException(response);
-                    }
-                    else
-                    {
-                        medicalProfessionalRepository.CreatePatient(patientRequest);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                throw new HttpResponseException(response);
-            }
-        }
+        //        using (var context = new HackathonEntities())
+        //        {
+                    
+        //            patientRepository.(patientRequest);
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new HttpResponseException(response);
+        //    }
+        //}
 
         [Route("AssignMedication")]
         public void assignMedication(int medicalProfessionalId, int patientId, int pharmacyId, ScriptRequest request)
