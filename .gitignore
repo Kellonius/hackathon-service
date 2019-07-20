@@ -2,6 +2,8 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+*.suo
+.vs/
 /.vs/Hackathon-Service
 .idea/
 ## Ignore Visual Studio temporary files, build results, and
