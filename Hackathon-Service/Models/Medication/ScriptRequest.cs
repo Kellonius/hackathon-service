@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Hackathon_Service.Models.Epic
+namespace Hackathon_Service.Models
 {
     public class ScriptRequest
     {

@@ -1,13 +1,11 @@
-﻿using Hackathon_Service.Models.Users.Requests;
-using System;
-using System.Linq;
+﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Hackathon_DataAccess;
-using Hackathon_Service.Models.Users.Responses;
+using Hackathon_Service.Models;
+using Hackathon_Service.Models.Users.Requests;
 using Hackathon_Service.Repositories;
 using Hackathon_Service.Repositories.Interfaces;
 using Hackathon_Service.Models.Epic;
