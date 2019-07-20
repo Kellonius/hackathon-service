@@ -25,14 +25,14 @@ namespace Hackathon_Service.Controllers
         }
         
         [Route("CreateUser")]
-        public void createUser(UserCreationRequest request)
+        public IHttpActionResult createUser(UserCreationRequest request)
         {
             var response = new HttpResponseMessage();
             try
             {
                 using (var context = new HackathonEntities())
                 {
-                    var exists = userRespository.checkIfUserExists(request.email);
+                    var exists = context.users.Where(x => x.email.Equals(request.email) && x.delete_ts == null).FirstOrDefault();
 
                     if (exists != null && exists.email.Length > 0)
                     {
@@ -51,7 +51,8 @@ namespace Hackathon_Service.Controllers
                     context.users.Add(user);
                     context.SaveChanges();
                     context.Dispose();
-                }          
+                }
+                return Ok("success");
             }
             catch (Exception e)
             {
@@ -67,7 +68,7 @@ namespace Hackathon_Service.Controllers
             {
                 using (var context = new HackathonEntities())
                 {
-                    var user = context.users.FirstOrDefault(x => x.email.Equals(userLoginRequest.email) && x.delete_ts != null);
+                    var user = context.users.FirstOrDefault(x => x.email.Equals(userLoginRequest.email) && x.delete_ts == null);
                     if (user == null)
                     {
                         response = Request.CreateErrorResponse(HttpStatusCode.BadRequest,
