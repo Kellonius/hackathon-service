@@ -25,6 +25,13 @@ namespace Hackathon_Service.Repositories
             }
         }
 
+        public void createNewUserPatient(PatientCreationRequest request)
+        {
+            userRepository.createNewUser(request);
+            var user = userRepository.getUserInfo(request.email);
+            createNewPatient(request, user.id);
+        }
+
         public void createNewPatient(PatientCreationRequest request, int userId)
         {
             using (var context = new HackathonEntities())

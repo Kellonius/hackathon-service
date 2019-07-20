@@ -10,12 +10,19 @@ namespace Hackathon_Service.Repositories
 {
     public class MedicalProfessionalRepository
     {
-        private UserRepository userRespository;
+        private UserRepository userRepository;
         private PatientRepository patientRepository;
         public MedicalProfessionalRepository()
         {
-            userRespository = new UserRepository();
+            userRepository = new UserRepository();
             patientRepository = new PatientRepository();
+        }
+
+        public void createNewUserMedicalProfessional(MedicalProfessionalRequest request)
+        {
+            userRepository.createNewUser(request);
+            var user = userRepository.getUserInfo(request.email);
+            createNewMedicalProfessional(request, user.id);
         }
 
         public void CreateMedicalProfessional(int userId)
@@ -32,12 +39,29 @@ namespace Hackathon_Service.Repositories
             }
         }
 
-        public void CreatePatient(PatientCreationRequest patientRequest)
+        public void createNewMedicalProfessional(MedicalProfessionalRequest request, int userId)
         {
             using (var context = new HackathonEntities())
             {
-                userRespository.createNewUser(patientRequest);
-                var user = userRespository.getUserInfo(patientRequest.email);
+                var medicalProfessional = new MedicalProfessional()
+                {
+                    UserId = userId,
+                    Address = request.Address,
+                    Email = request.email,
+                    Phone = request.Phone
+                };
+                context.MedicalProfessionals.Add(medicalProfessional);
+                context.SaveChanges();
+                context.Dispose();
+            }
+        }
+
+        public void CreateNewPatientAndMPRecord(PatientCreationRequest patientRequest)
+        {
+            using (var context = new HackathonEntities())
+            {
+                userRepository.createNewUser(patientRequest);
+                var user = userRepository.getUserInfo(patientRequest.email);
                 patientRepository.createNewPatient(patientRequest, user.id);
                 var patient = patientRepository.getPatientInfo(user.id);
                 var mpToPatient = new MpToPatient()

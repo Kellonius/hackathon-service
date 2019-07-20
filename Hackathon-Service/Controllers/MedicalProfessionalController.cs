@@ -53,7 +53,7 @@ namespace Hackathon_Service.Controllers
                     }
                     else
                     {
-                        medicalProfessionalRepository.CreatePatient(patientRequest);
+                        medicalProfessionalRepository.CreateNewPatientAndMPRecord(patientRequest);
                     }
                 }
             }

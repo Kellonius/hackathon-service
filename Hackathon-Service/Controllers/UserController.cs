@@ -17,11 +17,17 @@ namespace Hackathon_Service.Controllers
     [RoutePrefix("Users")]
     public class UserController : ApiController
     {
-        private UserRepository userRespository;
+        private UserRepository userRepository;
+        private PatientRepository patientRepository;
+        private PharmacyRepository pharmacyRepository;
+        private MedicalProfessionalRepository medicalProfessionalRepository;
         
         public UserController()
         {
-            userRespository = new UserRepository();
+            userRepository = new UserRepository();
+            patientRepository = new PatientRepository();
+            pharmacyRepository = new PharmacyRepository();
+            medicalProfessionalRepository = new MedicalProfessionalRepository();
         }
         
         [Route("CreateUser")]
@@ -32,25 +38,89 @@ namespace Hackathon_Service.Controllers
             {
                 using (var context = new HackathonEntities())
                 {
-                    var exists = context.users.Where(x => x.email.Equals(request.email) && x.delete_ts == null).FirstOrDefault();
-
+                    var exists = userRepository.checkIfUserExists(request.email);
                     if (exists != null && exists.email.Length > 0)
                     {
                         response = Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                             "An account with this email already exists.");
                         throw new HttpResponseException(response);
                     }
-                    var user = new user()
+                    userRepository.createNewUser(request);
+                }
+                return Ok("success");
+            }
+            catch (Exception e)
+            {
+                throw new HttpResponseException(response);
+            }
+        }
+
+        [Route("CreatePatient")]
+        public IHttpActionResult createPatient(PatientCreationRequest request)
+        {
+            var response = new HttpResponseMessage();
+            try
+            {
+                using (var context = new HackathonEntities())
+                {
+                    var exists = userRepository.checkIfUserExists(request.email);
+                    if (exists != null && exists.email.Length > 0)
                     {
-                        first_name = request.firstName,
-                        last_name = request.lastName,
-                        email = request.email,
-                        password = hashPassword(request.password),
-                        create_ts = DateTime.Now
-                    };
-                    context.users.Add(user);
-                    context.SaveChanges();
-                    context.Dispose();
+                        response = Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                            "An account with this email already exists.");
+                        throw new HttpResponseException(response);
+                    }
+                    patientRepository.createNewUserPatient(request);
+                }
+                return Ok("success");
+            }
+            catch (Exception e)
+            {
+                throw new HttpResponseException(response);
+            }
+        }
+
+        [Route("CreatePharmacy")]
+        public IHttpActionResult createPharmacy(PharmacyCreationRequest request)
+        {
+            var response = new HttpResponseMessage();
+            try
+            {
+                using (var context = new HackathonEntities())
+                {
+                    var exists = userRepository.checkIfUserExists(request.email);
+                    if (exists != null && exists.email.Length > 0)
+                    {
+                        response = Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                            "An account with this email already exists.");
+                        throw new HttpResponseException(response);
+                    }
+                    pharmacyRepository.createNewUserPharmacy(request);
+                }
+                return Ok("success");
+            }
+            catch (Exception e)
+            {
+                throw new HttpResponseException(response);
+            }
+        }
+
+        [Route("CreateMedicalProfessional")]
+        public IHttpActionResult createMedicalProfessional(MedicalProfessionalRequest request)
+        {
+            var response = new HttpResponseMessage();
+            try
+            {
+                using (var context = new HackathonEntities())
+                {
+                    var exists = userRepository.checkIfUserExists(request.email);
+                    if (exists != null && exists.email.Length > 0)
+                    {
+                        response = Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                            "An account with this email already exists.");
+                        throw new HttpResponseException(response);
+                    }
+                    medicalProfessionalRepository.createNewUserMedicalProfessional(request);
                 }
                 return Ok("success");
             }

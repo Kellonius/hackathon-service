@@ -23,6 +23,9 @@ namespace Hackathon_DataAccess
     
         public int MPId { get; set; }
         public Nullable<int> UserId { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
     
         public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

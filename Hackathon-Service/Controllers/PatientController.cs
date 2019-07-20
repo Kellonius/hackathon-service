@@ -18,12 +18,12 @@ namespace Hackathon_Service.Controllers
     [RoutePrefix("Patient")]
     public class PatientController : ApiController
     {
-        private UserRepository userRespository;
+        private UserRepository userRepository;
         private PatientRepository patientRepository;
 
         public PatientController()
         {
-            userRespository = new UserRepository();
+            userRepository = new UserRepository();
             patientRepository = new PatientRepository();
         }
 

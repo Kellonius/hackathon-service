@@ -198,6 +198,8 @@
     <Compile Include="Models\Epic\Link.cs" />
     <Compile Include="Models\Epic\MedicationOrder.cs" />
     <Compile Include="Models\Medication\ScriptRequest.cs" />
+    <Compile Include="Models\Users\Requests\MedicalProfessionalRequest.cs" />
+    <Compile Include="Models\Users\Requests\PharmacyCreationRequest.cs" />
     <Compile Include="Models\Users\Requests\PatientCreationRequest.cs" />
     <Compile Include="Models\Epic\Name.cs" />
     <Compile Include="Models\Epic\Period.cs" />
@@ -217,6 +219,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\MedicalProfessionalRepository.cs" />
+    <Compile Include="Repositories\PharmacyRepository.cs" />
     <Compile Include="Repositories\PatientRepository.cs" />
     <Compile Include="Repositories\UserRespository.cs" />
     <Compile Include="Services\EpicService.cs" />

@@ -36,6 +36,7 @@ namespace Hackathon_Service.Repositories
             }
         }
 
+
         public user getUserInfo(string email)
         {
             using (var context = new HackathonEntities())
