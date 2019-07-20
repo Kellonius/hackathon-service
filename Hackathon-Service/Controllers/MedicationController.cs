@@ -44,6 +44,22 @@ namespace Hackathon_Service.Controllers
                 .Select(m => new ScriptModel(m)).ToList();
         }
 
+        [HttpPost]
+        [Route("AddMedication")]
+        public IHttpActionResult AddMedication(MedicationAddRequest request)
+        {
+            try
+            {
+                _medicationRepository.AddMedication(request);
+                return Ok("success");
+            }
+            catch
+            {
+                return BadRequest("failed");
+            }
+                
+        }
+
 
         [HttpGet]
         [Route("UnpickedUpPrescriptionsByMonth")]

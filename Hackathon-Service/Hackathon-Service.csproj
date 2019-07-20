@@ -198,6 +198,7 @@
     <Compile Include="Models\Epic\Identifier.cs" />
     <Compile Include="Models\Epic\Link.cs" />
     <Compile Include="Models\Epic\MedicationOrder.cs" />
+    <Compile Include="Models\Medication\MedicationAddRequest.cs" />
     <Compile Include="Models\Medication\MedicationDataRequest.cs" />
     <Compile Include="Models\Medication\MedicationModel.cs" />
     <Compile Include="Models\Medication\MedicationPrescriptionRequest.cs" />

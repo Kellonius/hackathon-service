@@ -36,5 +36,34 @@ namespace Hackathon_Service.Repositories
                 return context.Scripts.ToList();
             }
         }
+
+        public void AddMedication(MedicationAddRequest request)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var med = new Medication()
+                {
+                    MedicalName = request.medName,
+                    GenericName = request.name
+                };
+                context.Medications.Add(med);
+                context.SaveChanges();
+
+                var patientId = context.Patients.FirstOrDefault(x => x.UserId == request.userId).PatientId;
+
+                var script = new Script()
+                {
+                    PatientId = patientId,
+                    MedicationId = med.MedicationId,
+                    Dosage = request.dosage,
+                    MedicationTime = request.time,
+                    MPId = 6
+                };
+
+                context.Scripts.Add(script);
+                context.SaveChanges();
+                context.Dispose();
+            }
+        }
     }
 }
