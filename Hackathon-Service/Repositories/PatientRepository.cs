@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Hackathon_Service.Models.Users.Responses;
+using Hackathon_Service.Models;
 
 namespace Hackathon_Service.Repositories
 {
@@ -63,6 +64,7 @@ namespace Hackathon_Service.Repositories
         {
             var user = userRepository.getUserInfo(userEmail);
             var patientInfo = getPatientInfo(user.id);
+            var patientScripts = getPatientScripts(patientInfo.PatientId);
             var response = new PatientDataResponse()
             {
                 id = user.id,
@@ -70,9 +72,26 @@ namespace Hackathon_Service.Repositories
                 lastName = user.last_name,
                 email = user.email,
                 DOB = patientInfo.DOB,
-                Gender = patientInfo.Gender
+                Gender = patientInfo.Gender,
+                Scripts = patientScripts
             };
             return response;
+        }
+
+        public List<ScriptModel> getPatientScripts(int? patientId)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var scriptIds = context.Scripts.Where(x => x.PatientId == patientId).Select(x => x.ScriptId);
+                var scripts = new List<ScriptModel>();
+                foreach(var id in scriptIds)
+                {
+                    var script = context.Scripts.FirstOrDefault(x => x.ScriptId == id);
+                    scripts.Add(new ScriptModel(script));
+                }
+                context.Dispose();
+                return scripts;
+            }
         }
 
         public Patient getPatientDataFromId(int? patientId)

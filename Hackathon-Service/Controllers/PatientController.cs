@@ -28,6 +28,7 @@ namespace Hackathon_Service.Controllers
         {
             return patientRepository.getAllPatientData(userEmail);
         }
+
         
 
         //[Route("CreatePatientFromExistingUser")]

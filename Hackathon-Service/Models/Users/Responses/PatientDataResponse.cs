@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hackathon_DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,5 +10,6 @@ namespace Hackathon_Service.Models.Users.Responses
     {
         public string Gender { get; set; }
         public DateTime? DOB { get; set; }
+        public List<ScriptModel> Scripts { get; set; }
     }
 }
