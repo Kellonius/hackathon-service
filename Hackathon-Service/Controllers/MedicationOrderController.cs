@@ -24,7 +24,7 @@ namespace Hackathon_Service.Controllers
  
         [HttpGet]
         [Route("order")]
-        public MedicationOrder MedicationOrder(string patientId)
+        public EpicRequest MedicationOrder(string patientId)
         {
             return _epicService.GetMedicationOrderByPatient(patientId);
         }
