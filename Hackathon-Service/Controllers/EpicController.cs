@@ -14,11 +14,11 @@ namespace Hackathon_Service.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("Epic")]
-    public class MedicationOrderController : ApiController
+    public class EpicController : ApiController
     {
         private EpicService _epicService;
 
-        public MedicationOrderController()
+        public EpicController()
         {
             _epicService = new EpicService();
         }
@@ -42,6 +42,13 @@ namespace Hackathon_Service.Controllers
         public Medication Medication(string medicationId)
         {
             return  _epicService.GetMedication(medicationId);
+        }
+        
+        [HttpGet]
+        [Route("CarePlan")]
+        public CarePlanResponse CarePlan(string patientId)
+        {
+            return  _epicService.GetCarePlan(patientId);
         }
     }
 }

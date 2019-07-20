@@ -25,5 +25,10 @@ namespace Hackathon_Service.Services
         {
             return service.Get<Medication>($"Medication/{medicationId}");
         }
+
+        public CarePlanResponse GetCarePlan(string patientId)
+        {
+            return service.Get<CarePlanResponse>($"CarePlan?patient={patientId}");
+        }
     }
 }

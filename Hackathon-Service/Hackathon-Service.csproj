@@ -168,16 +168,22 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MedicationOrderController.cs" />
+    <Compile Include="Controllers\EpicController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Epic\Activity.cs" />
     <Compile Include="Models\Epic\Address.cs" />
     <Compile Include="Models\Epic\BoundsPeriod.cs" />
+    <Compile Include="Models\Epic\CarePlan.cs" />
+    <Compile Include="Models\Epic\CarePlanEntry.cs" />
+    <Compile Include="Models\Epic\CarePlanResponse.cs" />
+    <Compile Include="Models\Epic\Code.cs" />
     <Compile Include="Models\Epic\Coding.cs" />
     <Compile Include="Models\Epic\Communication.cs" />
+    <Compile Include="Models\Epic\Detail.cs" />
     <Compile Include="Models\Epic\DispenseRequest.cs" />
     <Compile Include="Models\Epic\DosageInstruction.cs" />
     <Compile Include="Models\Epic\DoseQuantity.cs" />
