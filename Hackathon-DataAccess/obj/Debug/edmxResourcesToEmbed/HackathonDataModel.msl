@@ -14,5 +14,68 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="MedicalProfessionals">
+      <EntityTypeMapping TypeName="hackathonModel.MedicalProfessional">
+        <MappingFragment StoreEntitySet="MedicalProfessional">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MPId" ColumnName="MPId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medications">
+      <EntityTypeMapping TypeName="hackathonModel.Medication">
+        <MappingFragment StoreEntitySet="Medication">
+          <ScalarProperty Name="MedicalName" ColumnName="MedicalName" />
+          <ScalarProperty Name="GenericName" ColumnName="GenericName" />
+          <ScalarProperty Name="MedicationId" ColumnName="MedicationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MpToPatients">
+      <EntityTypeMapping TypeName="hackathonModel.MpToPatient">
+        <MappingFragment StoreEntitySet="MpToPatient">
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+          <ScalarProperty Name="MPId" ColumnName="MPId" />
+          <ScalarProperty Name="MpToPatientId" ColumnName="MpToPatientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patients">
+      <EntityTypeMapping TypeName="hackathonModel.Patient">
+        <MappingFragment StoreEntitySet="Patient">
+          <ScalarProperty Name="SocialSecurity" ColumnName="SocialSecurity" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pharmacies">
+      <EntityTypeMapping TypeName="hackathonModel.Pharmacy">
+        <MappingFragment StoreEntitySet="Pharmacy">
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PharmId" ColumnName="PharmId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Scripts">
+      <EntityTypeMapping TypeName="hackathonModel.Script">
+        <MappingFragment StoreEntitySet="Scripts">
+          <ScalarProperty Name="DatePickedUp" ColumnName="DatePickedUp" />
+          <ScalarProperty Name="DateFilled" ColumnName="DateFilled" />
+          <ScalarProperty Name="DateIssued" ColumnName="DateIssued" />
+          <ScalarProperty Name="MedicationRoute" ColumnName="MedicationRoute" />
+          <ScalarProperty Name="MedicationTime" ColumnName="MedicationTime" />
+          <ScalarProperty Name="Dosage" ColumnName="Dosage" />
+          <ScalarProperty Name="PharmId" ColumnName="PharmId" />
+          <ScalarProperty Name="MPId" ColumnName="MPId" />
+          <ScalarProperty Name="MedicationId" ColumnName="MedicationId" />
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+          <ScalarProperty Name="ScriptId" ColumnName="ScriptId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
