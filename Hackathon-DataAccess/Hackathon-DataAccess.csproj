@@ -80,6 +80,9 @@
     <Compile Include="Pharmacy.cs">
       <DependentUpon>HackathonDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PharmacyEvent.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script.cs">
       <DependentUpon>HackathonDataModel.tt</DependentUpon>

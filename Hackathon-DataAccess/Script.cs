@@ -14,6 +14,12 @@ namespace Hackathon_DataAccess
     
     public partial class Script
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Script()
+        {
+            this.PharmacyEvents = new HashSet<PharmacyEvent>();
+        }
+    
         public int ScriptId { get; set; }
         public Nullable<int> PatientId { get; set; }
         public Nullable<int> MedicationId { get; set; }
@@ -30,5 +36,7 @@ namespace Hackathon_DataAccess
         public virtual Medication Medication { get; set; }
         public virtual Patient Patient { get; set; }
         public virtual Pharmacy Pharmacy { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PharmacyEvent> PharmacyEvents { get; set; }
     }
 }
