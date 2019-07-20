@@ -47,16 +47,16 @@ namespace Hackathon_Service.Controllers
 
         [HttpGet]
         [Route("GetIncomingPrescriptions")]
-        public List<ScriptModel> GetIncomingPrescriptions()
+        public List<PatientScript> GetIncomingPrescriptions()
         {
-            return _medicationRepository.GetIncomingPrescriptions().Select(s => new ScriptModel(s)).ToList();
+            return _medicationRepository.GetIncomingPrescriptions();
         }
 
         [HttpGet]
         [Route("GetOutgoingPrescriptions")]
-        public List<ScriptModel> GetOutgoingPrescriptions()
+        public List<PatientScript> GetOutgoingPrescriptions()
         {
-            return _medicationRepository.GetOutgoingPrescriptions().Select(s => new ScriptModel(s)).ToList();
+            return _medicationRepository.GetOutgoingPrescriptions();
         }
 
         [HttpPost]
