@@ -8,6 +8,8 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Hackathon_DataAccess;
 using Hackathon_Service.Models.Users.Responses;
+using Hackathon_Service.Repositories;
+using Hackathon_Service.Repositories.Interfaces;
 
 namespace Hackathon_Service.Controllers
 {
@@ -15,6 +17,13 @@ namespace Hackathon_Service.Controllers
     [RoutePrefix("Users")]
     public class UserController : ApiController
     {
+        private UserRespository userRespository;
+        
+        public UserController()
+        {
+            userRespository = new UserRespository();
+        }
+        
         [Route("CreateUser")]
         public IHttpActionResult createUser(UserCreationRequest request)
         {
