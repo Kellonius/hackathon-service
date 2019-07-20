@@ -102,10 +102,13 @@ namespace Hackathon_Service.Repositories
                     var script = context.Scripts.FirstOrDefault(x => x.ScriptId == id);
                     var medicalProfessional = context.MedicalProfessionals.FirstOrDefault(x => x.MPId == script.MPId);
                     var medicalProfessionalUser = context.users.FirstOrDefault(x => x.id == medicalProfessional.UserId);
+                    var medication = context.Medications.FirstOrDefault(x => x.MedicationId == script.MedicationId);
                     scripts.Add(new ScriptModel(script) {
                         PrescribedBy = "Dr. " + medicalProfessionalUser.first_name + " " + medicalProfessionalUser.last_name,
                         Phone = medicalProfessional.Phone,
-                        Email = medicalProfessional.Email
+                        Email = medicalProfessional.Email,
+                        MedicationGenericName = medication.GenericName,
+                        MedicationMedicalName = medication.MedicalName
                     });
                 }
                 context.Dispose();
