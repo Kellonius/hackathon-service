@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Hackathon_DataAccess;
 using Hackathon_Service.Models.Medication;
+using Microsoft.Ajax.Utilities;
 
 namespace Hackathon_Service.Repositories
 {
@@ -25,7 +27,8 @@ namespace Hackathon_Service.Repositories
             using (var context = new HackathonEntities())
             {
                 var patientId = context.Patients.FirstOrDefault(x => x.UserId == request.userId).PatientId;
-                return context.Scripts.Where(s => s.PatientId == patientId && s.MedicationId == request.medicationId).ToList();
+                return context.Scripts.Where(s => s.PatientId == patientId && s.MedicationId == request.medicationId)
+                    .ToList();
             }
         }
 
@@ -34,6 +37,47 @@ namespace Hackathon_Service.Repositories
             using (var context = new HackathonEntities())
             {
                 return context.Scripts.ToList();
+            }
+        }
+
+        public List<Script> GetIncomingPrescriptions()
+        {
+            using (var context = new HackathonEntities())
+            {
+                return context.Scripts.Where(s => s.DateFilled == null && s.DatePickedUp == null).ToList();
+            }
+        }
+
+        public List<Script> GetOutgoingPrescriptions()
+        {
+            using (var context = new HackathonEntities())
+            {
+                return context.Scripts.Where(s => s.DateFilled != null && s.DatePickedUp == null).ToList();
+            }
+        }
+
+        public void MarkPrescriptionsAsFilled(List<int> prescriptionIds)
+        {
+            using (var context = new HackathonEntities())
+            {
+                context.Scripts.Where(s => prescriptionIds.Contains(s.ScriptId))
+                    .ForEach(s => s.DateFilled = DateTime.Now);
+            }
+        }
+
+        public void MarkPrescriptionsAsPickedUp(List<int> prescriptionIds)
+        {
+            using (var context = new HackathonEntities())
+            {
+                context.Scripts.Where(s => prescriptionIds.Contains(s.ScriptId))
+                    .ForEach(s =>
+                    {
+                        if (s.DateFilled == null)
+                        {
+                            s.DateFilled = DateTime.Now;
+                        }
+                        s.DatePickedUp = DateTime.Now;
+                    });
             }
         }
     }

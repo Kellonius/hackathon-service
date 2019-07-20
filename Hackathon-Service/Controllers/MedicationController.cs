@@ -33,7 +33,8 @@ namespace Hackathon_Service.Controllers
         [Route("GetMedications")]
         public List<MedicationModel> GetMedications(MedicationDataRequest request)
         {
-            return _medicationRepository.GetMedicationByPatient(request.patientId).Select(m => new MedicationModel(m)).ToList();
+            return _medicationRepository.GetMedicationByPatient(request.patientId).Select(m => new MedicationModel(m))
+                .ToList();
         }
 
         [HttpPost]
@@ -42,6 +43,52 @@ namespace Hackathon_Service.Controllers
         {
             return _medicationRepository.GetScriptsByPatientAndMedication(request)
                 .Select(m => new ScriptModel(m)).ToList();
+        }
+
+        [HttpGet]
+        [Route("GetIncomingPrescriptions")]
+        public List<ScriptModel> GetIncomingPrescriptions()
+        {
+            return _medicationRepository.GetIncomingPrescriptions().Select(s => new ScriptModel(s)).ToList();
+        }
+
+        [HttpGet]
+        [Route("GetOutgoingPrescriptions")]
+        public List<ScriptModel> GetOutgoingPrescriptions()
+        {
+            return _medicationRepository.GetOutgoingPrescriptions().Select(s => new ScriptModel(s)).ToList();
+        }
+
+        [HttpPost]
+        [Route("MarkPrescriptionsAsFilled")]
+        public bool MarkPrescriptionsAsFilled(List<int> prescriptionIds)
+        {
+            try
+            {
+                _medicationRepository.MarkPrescriptionsAsFilled(prescriptionIds);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        [HttpPost]
+        [Route("MarkPrescriptionsAsPickedUp")]
+        public bool MarkPrescriptionsAsPickedUp(List<int> prescriptionIds)
+        {
+            try
+            {
+                _medicationRepository.MarkPrescriptionsAsPickedUp(prescriptionIds);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
         }
 
 
@@ -58,12 +105,12 @@ namespace Hackathon_Service.Controllers
                 var monthInt = script.DateIssued.Value.Month;
                 var month = Months[monthInt - 1];
                 var year = script.DateIssued.Value.Year;
-                
-                if(monthlyReports.Any(m => m.Month == month && m.Year == year.ToString()))
+
+                if (monthlyReports.Any(m => m.Month == month && m.Year == year.ToString()))
                 {
                     continue;
                 }
-                
+
                 var scriptsForMonth = scripts.Where(s =>
                     s.DateIssued >= new DateTime(year, monthInt, 1) &&
                     s.DateIssued < new DateTime(year, monthInt, 1).AddMonths(1));
