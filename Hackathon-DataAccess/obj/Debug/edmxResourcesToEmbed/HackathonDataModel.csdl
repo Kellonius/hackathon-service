@@ -104,6 +104,7 @@
     <NavigationProperty Name="MpToPatients" Relationship="hackathonModel.FK__MpToPatie__Patie__6C190EBB" FromRole="Patient" ToRole="MpToPatient" />
     <NavigationProperty Name="user" Relationship="hackathonModel.FK__Patient__UserId__5CD6CB2B" FromRole="Patient" ToRole="user" />
     <NavigationProperty Name="Scripts" Relationship="hackathonModel.FK__Scripts__Patient__6EF57B66" FromRole="Patient" ToRole="Script" />
+    <Property Name="AtRisk" Type="Boolean" />
   </EntityType>
   <EntityType Name="Pharmacy">
     <Key>

@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Hackathon_DataAccess;
 using Hackathon_Service.Models;
+using Hackathon_Service.Models.Medication;
 using Hackathon_Service.Reports;
 using Hackathon_Service.Repositories;
 
@@ -28,18 +29,18 @@ namespace Hackathon_Service.Controllers
             _medicationRepository = new MedicationRepository();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetMedications")]
-        public List<MedicationModel> GetMedications(int patientId)
+        public List<MedicationModel> GetMedications(MedicationDataRequest request)
         {
-            return _medicationRepository.GetMedicationByPatient(patientId).Select(m => new MedicationModel(m)).ToList();
+            return _medicationRepository.GetMedicationByPatient(request.patientId).Select(m => new MedicationModel(m)).ToList();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetMedicationPrescriptions")]
-        public List<ScriptModel> GetMedicationPrescriptions(int patientId, int medicationId)
+        public List<ScriptModel> GetMedicationPrescriptions(MedicationPrescriptionRequest request)
         {
-            return _medicationRepository.GetScriptsByPatientAndMedication(patientId, medicationId)
+            return _medicationRepository.GetScriptsByPatientAndMedication(request)
                 .Select(m => new ScriptModel(m)).ToList();
         }
 

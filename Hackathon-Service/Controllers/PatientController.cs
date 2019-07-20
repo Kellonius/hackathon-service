@@ -22,11 +22,11 @@ namespace Hackathon_Service.Controllers
             patientRepository = new PatientRepository();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetPatientData")]
-        public PatientDataResponse GetPatientData(string userEmail)
+        public PatientDataResponse GetPatientData(PatientDataRequest patient)
         {
-            return patientRepository.getAllPatientData(userEmail);
+            return patientRepository.getAllPatientData(patient.userEmail);
         }
         
 

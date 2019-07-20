@@ -35,6 +35,7 @@
     <Property Name="DOB" Type="datetime" />
     <Property Name="SocialSecurity" Type="nvarchar" MaxLength="20" />
     <Property Name="Gender" Type="nvarchar" MaxLength="30" />
+    <Property Name="AtRisk" Type="bit" />
   </EntityType>
   <EntityType Name="Pharmacy">
     <Key>

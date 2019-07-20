@@ -198,9 +198,12 @@
     <Compile Include="Models\Epic\Identifier.cs" />
     <Compile Include="Models\Epic\Link.cs" />
     <Compile Include="Models\Epic\MedicationOrder.cs" />
+    <Compile Include="Models\Medication\MedicationDataRequest.cs" />
     <Compile Include="Models\Medication\MedicationModel.cs" />
+    <Compile Include="Models\Medication\MedicationPrescriptionRequest.cs" />
     <Compile Include="Models\Medication\ScriptModel.cs" />
     <Compile Include="Models\Medication\ScriptRequest.cs" />
+    <Compile Include="Models\Users\PatientDataRequest.cs" />
     <Compile Include="Models\Users\Requests\MedicalProfessionalRequest.cs" />
     <Compile Include="Models\Users\Requests\PharmacyCreationRequest.cs" />
     <Compile Include="Models\Users\Requests\PatientCreationRequest.cs" />

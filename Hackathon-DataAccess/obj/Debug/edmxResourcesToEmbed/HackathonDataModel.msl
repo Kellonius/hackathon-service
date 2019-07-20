@@ -46,6 +46,7 @@
     <EntitySetMapping Name="Patients">
       <EntityTypeMapping TypeName="hackathonModel.Patient">
         <MappingFragment StoreEntitySet="Patient">
+          <ScalarProperty Name="AtRisk" ColumnName="AtRisk" />
           <ScalarProperty Name="SocialSecurity" ColumnName="SocialSecurity" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="DOB" ColumnName="DOB" />
