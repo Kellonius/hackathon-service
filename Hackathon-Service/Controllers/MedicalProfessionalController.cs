@@ -78,9 +78,10 @@ namespace Hackathon_Service.Controllers
 
         [HttpGet]
         [Route("GetPatientsForMP")]
-        public List<PatientDataResponse> getPatientsForMP(int medicalProfessionalId)
+        public List<PatientDataResponse> getPatientsForMP(string userEmail)
         {
-            var results = medicalProfessionalRepository.getPatientsForMP(medicalProfessionalId);
+            var medicalProfessionalData = medicalProfessionalRepository.getAllMedicalProfessionalData(userEmail);
+            var results = medicalProfessionalRepository.getPatientsForMP(medicalProfessionalData.MPId);
             return results;
         }
 
