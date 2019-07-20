@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Hackathon_Service.Repositories
 {
-    public class UserRespository
+    public class UserRepository
     {
         public user checkIfUserExists(string email)
         {
@@ -33,6 +33,16 @@ namespace Hackathon_Service.Repositories
                 context.users.Add(user);
                 context.SaveChanges();
                 context.Dispose();
+            }
+        }
+
+        public user getUserInfo(string email)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var user = context.users.FirstOrDefault(x => x.email == email);
+                context.Dispose();
+                return user;
             }
         }
 
