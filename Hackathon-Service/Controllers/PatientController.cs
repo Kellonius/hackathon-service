@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -33,6 +34,13 @@ namespace Hackathon_Service.Controllers
         public void PatientPickedUpMedication(int scriptId)
         {
             patientRepository.patientPickedUpMedication(scriptId);
+        }
+
+        [HttpGet]
+        [Route("SearchPatients")]
+        public List<PatientDataResponse> SearchPatients(string terms)
+        {
+            return patientRepository.SearchPatients(terms);
         }
 
         //[Route("CreatePatientFromExistingUser")]
