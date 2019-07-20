@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Hackathon_Service.Models.Epic
 {
 
-    public class EpicRequest
+    public class MedicationOrderResponse
     {
         public string resourceType { get; set; }
         public string type { get; set; }

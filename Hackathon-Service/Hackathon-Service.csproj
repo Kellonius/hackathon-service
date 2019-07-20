@@ -174,23 +174,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Epic\Address.cs" />
     <Compile Include="Models\Epic\BoundsPeriod.cs" />
     <Compile Include="Models\Epic\Coding.cs" />
+    <Compile Include="Models\Epic\Communication.cs" />
     <Compile Include="Models\Epic\DispenseRequest.cs" />
     <Compile Include="Models\Epic\DosageInstruction.cs" />
     <Compile Include="Models\Epic\DoseQuantity.cs" />
     <Compile Include="Models\Epic\Entry.cs" />
-    <Compile Include="Models\Epic\EpicRequest.cs" />
-    <Compile Include="Models\Epic\ExpectedSupplyDuration.cs" />
+    <Compile Include="Models\Epic\EpicPatient.cs" />
+    <Compile Include="Models\Epic\Medication.cs" />
+    <Compile Include="Models\Epic\MedicationOrderResponse.cs" />
+    <Compile Include="Models\Epic\Extension.cs" />
     <Compile Include="Models\Epic\Identifier.cs" />
     <Compile Include="Models\Epic\Link.cs" />
     <Compile Include="Models\Epic\MedicationOrder.cs" />
-    <Compile Include="Models\Epic\Method.cs" />
+    <Compile Include="Models\Epic\Name.cs" />
+    <Compile Include="Models\Epic\Period.cs" />
+    <Compile Include="Models\Epic\Product.cs" />
     <Compile Include="Models\Epic\Quantity.cs" />
     <Compile Include="Models\Epic\Reference.cs" />
     <Compile Include="Models\Epic\Repeat.cs" />
-    <Compile Include="Models\Epic\Route.cs" />
+    <Compile Include="Models\Epic\Property.cs" />
     <Compile Include="Models\Epic\Search.cs" />
+    <Compile Include="Models\Epic\Telecom.cs" />
     <Compile Include="Models\Epic\Timing.cs" />
     <Compile Include="Models\Epic\ValidityPeriod.cs" />
     <Compile Include="Models\Users\Requests\UserCreationRequest.cs" />

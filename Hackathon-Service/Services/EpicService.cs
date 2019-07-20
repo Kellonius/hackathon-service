@@ -11,9 +11,19 @@ namespace Hackathon_Service.Services
             service = new HttpService("https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/");
         }
 
-        public EpicRequest GetMedicationOrderByPatient(string patientId)
+        public MedicationOrderResponse GetMedicationOrderByPatient(string patientId)
         {
-            return service.Get<EpicRequest>($"MedicationOrder?patient={patientId}");
+            return service.Get<MedicationOrderResponse>($"MedicationOrder?patient={patientId}");
+        }
+
+        public EpicPatient GetPatient(string patientId)
+        {
+            return service.Get<EpicPatient>($"Patient/{patientId}");
+        }
+
+        public Medication GetMedication(string medicationId)
+        {
+            return service.Get<Medication>($"Medication/{medicationId}");
         }
     }
 }

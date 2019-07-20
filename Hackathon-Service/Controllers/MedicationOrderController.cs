@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -12,7 +13,7 @@ using Newtonsoft.Json;
 namespace Hackathon_Service.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("MedicationOrder")]
+    [RoutePrefix("Epic")]
     public class MedicationOrderController : ApiController
     {
         private EpicService _epicService;
@@ -23,10 +24,24 @@ namespace Hackathon_Service.Controllers
         }
  
         [HttpGet]
-        [Route("order")]
-        public EpicRequest MedicationOrder(string patientId)
+        [Route("Orders")]
+        public MedicationOrderResponse MedicationOrder(string patientId)
         {
             return _epicService.GetMedicationOrderByPatient(patientId);
+        }
+        
+        [HttpGet]
+        [Route("Patient")]
+        public EpicPatient Patient(string patientId)
+        {
+            return  _epicService.GetPatient(patientId);
+        }
+        
+        [HttpGet]
+        [Route("Medication")]
+        public Medication Medication(string medicationId)
+        {
+            return  _epicService.GetMedication(medicationId);
         }
     }
 }
