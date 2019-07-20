@@ -65,7 +65,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HackathonDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="MedicalProfessional.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Medication.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MpToPatient.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Patient.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pharmacy.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="user.cs">
       <DependentUpon>HackathonDataModel.tt</DependentUpon>
     </Compile>

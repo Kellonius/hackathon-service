@@ -12,29 +12,25 @@ namespace Hackathon_DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class Patient
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public Patient()
         {
-            this.MedicalProfessionals = new HashSet<MedicalProfessional>();
-            this.Patients = new HashSet<Patient>();
-            this.Pharmacies = new HashSet<Pharmacy>();
+            this.MpToPatients = new HashSet<MpToPatient>();
+            this.Scripts = new HashSet<Script>();
         }
     
-        public int id { get; set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
-        public Nullable<System.DateTime> create_ts { get; set; }
-        public Nullable<System.DateTime> delete_ts { get; set; }
+        public int PatientId { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<System.DateTime> DOB { get; set; }
+        public string Gender { get; set; }
+        public string SocialSecurity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MedicalProfessional> MedicalProfessionals { get; set; }
+        public virtual ICollection<MpToPatient> MpToPatients { get; set; }
+        public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Patient> Patients { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pharmacy> Pharmacies { get; set; }
+        public virtual ICollection<Script> Scripts { get; set; }
     }
 }

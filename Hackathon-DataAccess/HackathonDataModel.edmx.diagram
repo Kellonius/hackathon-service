@@ -6,6 +6,21 @@
     <edmx:Diagrams>
       <Diagram DiagramId="144d5ceb3e3645579d5e54e449469006" Name="Diagram1" >
         <EntityTypeShape EntityType="hackathonModel.user" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hackathonModel.MedicalProfessional" Width="1.5" PointX="3" PointY="11" />
+        <EntityTypeShape EntityType="hackathonModel.Medication" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="hackathonModel.MpToPatient" Width="1.5" PointX="5.25" PointY="12.375" />
+        <EntityTypeShape EntityType="hackathonModel.Patient" Width="1.5" PointX="3" PointY="7.625" />
+        <EntityTypeShape EntityType="hackathonModel.Pharmacy" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="hackathonModel.Script" Width="1.5" PointX="5.25" PointY="7" />
+        <AssociationConnector Association="hackathonModel.FK__MedicalPr__UserI__68487DD7" />
+        <AssociationConnector Association="hackathonModel.FK__MpToPatien__MPId__6B24EA82" />
+        <AssociationConnector Association="hackathonModel.FK__Scripts__MPId__71D1E811" />
+        <AssociationConnector Association="hackathonModel.FK__Scripts__Medicat__6FE99F9F" />
+        <AssociationConnector Association="hackathonModel.FK__MpToPatie__Patie__6C190EBB" />
+        <AssociationConnector Association="hackathonModel.FK__Patient__UserId__5CD6CB2B" />
+        <AssociationConnector Association="hackathonModel.FK__Scripts__Patient__6EF57B66" />
+        <AssociationConnector Association="hackathonModel.FK__Pharmacy__UserId__619B8048" />
+        <AssociationConnector Association="hackathonModel.FK__Scripts__PharmId__70DDC3D8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

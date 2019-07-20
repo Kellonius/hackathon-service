@@ -26,5 +26,11 @@ namespace Hackathon_DataAccess
         }
     
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<MedicalProfessional> MedicalProfessionals { get; set; }
+        public virtual DbSet<Medication> Medications { get; set; }
+        public virtual DbSet<MpToPatient> MpToPatients { get; set; }
+        public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Pharmacy> Pharmacies { get; set; }
+        public virtual DbSet<Script> Scripts { get; set; }
     }
 }
