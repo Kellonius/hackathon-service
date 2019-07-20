@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Medication = Hackathon_DataAccess.Medication;
+using m = Hackathon_DataAccess.Medication;
 
 namespace Hackathon_Service.Models
 {
@@ -14,7 +14,7 @@ namespace Hackathon_Service.Models
         {
         }
 
-        public MedicationModel(Medication medication)
+        public MedicationModel(m medication)
         {
             MedicationId = medication.MedicationId;
             GenericName = medication.GenericName;
