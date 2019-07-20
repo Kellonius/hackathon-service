@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Hackathon_Service.Models.Users.Responses;
+using Hackathon_Service.Models;
 
 namespace Hackathon_Service.Repositories
 {
@@ -40,10 +41,22 @@ namespace Hackathon_Service.Repositories
                 {
                     DOB = request.DOB,
                     Gender = request.Gender,
+                    AtRisk = request.AtRisk,
                     SocialSecurity = request.SocialSecurity,
                     UserId = userId
                 };
                 context.Patients.Add(patient);
+                context.SaveChanges();
+                context.Dispose();
+            }
+        }
+
+        internal void patientPickedUpMedication(int scriptId)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var script = context.Scripts.FirstOrDefault(x => x.ScriptId == scriptId);
+                script.DatePickedUp = DateTime.Now;
                 context.SaveChanges();
                 context.Dispose();
             }
@@ -63,16 +76,41 @@ namespace Hackathon_Service.Repositories
         {
             var user = userRepository.getUserInfo(userEmail);
             var patientInfo = getPatientInfo(user.id);
+            var patientScripts = getPatientScripts(patientInfo.PatientId);
             var response = new PatientDataResponse()
             {
                 id = user.id,
                 firstName = user.first_name,
                 lastName = user.last_name,
                 email = user.email,
-                DOB = patientInfo.DOB,
-                Gender = patientInfo.Gender
+                AtRisk = patientInfo.AtRisk.Value ? "Yes" : "No",
+                DOB = patientInfo.DOB.Value.ToString("MM-dd-yyyy"),
+                Gender = patientInfo.Gender,
+                Scripts = patientScripts
             };
             return response;
+        }
+
+        public List<ScriptModel> getPatientScripts(int? patientId)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var scriptIds = context.Scripts.Where(x => x.PatientId == patientId).Select(x => x.ScriptId);
+                var scripts = new List<ScriptModel>();
+                foreach(var id in scriptIds)
+                {
+                    var script = context.Scripts.FirstOrDefault(x => x.ScriptId == id);
+                    var medicalProfessional = context.MedicalProfessionals.FirstOrDefault(x => x.MPId == script.MPId);
+                    var medicalProfessionalUser = context.users.FirstOrDefault(x => x.id == medicalProfessional.UserId);
+                    scripts.Add(new ScriptModel(script) {
+                        PrescribedBy = "Dr. " + medicalProfessionalUser.first_name + " " + medicalProfessionalUser.last_name,
+                        Phone = medicalProfessional.Phone,
+                        Email = medicalProfessional.Email
+                    });
+                }
+                context.Dispose();
+                return scripts;
+            }
         }
 
         public Patient getPatientDataFromId(int? patientId)

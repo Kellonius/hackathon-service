@@ -87,14 +87,17 @@ namespace Hackathon_Service.Repositories
                 {
                     var patient = patientRepository.getPatientDataFromId(patientId);
                     var user = userRepository.getUserInfoFromId(patient.UserId);
+                    var scripts = patientRepository.getPatientScripts(patientId);
                     var result = new PatientDataResponse()
                     {
                         id = user.id,
                         firstName = user.first_name,
                         lastName = user.last_name,
                         email = user.email,
-                        DOB = patient.DOB,
-                        Gender = patient.Gender
+                        AtRisk = patient.AtRisk.Value ? "Yes" : "No",
+                        DOB = patient.DOB.Value.ToString("MM-dd-yyyy"),
+                        Gender = patient.Gender,
+                        Scripts = scripts
                     };
                     results.Add(result);
                 };
