@@ -4,14 +4,14 @@
     <Key>
       <PropertyRef Name="MPId" />
     </Key>
-    <Property Name="MPId" Type="int" Nullable="false" />
+    <Property Name="MPId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="int" />
   </EntityType>
   <EntityType Name="Medication">
     <Key>
       <PropertyRef Name="MedicationId" />
     </Key>
-    <Property Name="MedicationId" Type="int" Nullable="false" />
+    <Property Name="MedicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="GenericName" Type="nvarchar" MaxLength="255" />
     <Property Name="MedicalName" Type="nvarchar" MaxLength="255" />
   </EntityType>
@@ -19,7 +19,7 @@
     <Key>
       <PropertyRef Name="MpToPatientId" />
     </Key>
-    <Property Name="MpToPatientId" Type="int" Nullable="false" />
+    <Property Name="MpToPatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MPId" Type="int" />
     <Property Name="PatientId" Type="int" />
   </EntityType>
@@ -27,17 +27,17 @@
     <Key>
       <PropertyRef Name="PatientId" />
     </Key>
-    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="PatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="int" />
     <Property Name="DOB" Type="datetime" />
-    <Property Name="Gender" Type="nvarchar" MaxLength="30" />
     <Property Name="SocialSecurity" Type="nvarchar" MaxLength="20" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="30" />
   </EntityType>
   <EntityType Name="Pharmacy">
     <Key>
       <PropertyRef Name="PharmId" />
     </Key>
-    <Property Name="PharmId" Type="int" Nullable="false" />
+    <Property Name="PharmId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="int" />
     <Property Name="Location" Type="nvarchar(max)" />
   </EntityType>
@@ -45,7 +45,7 @@
     <Key>
       <PropertyRef Name="ScriptId" />
     </Key>
-    <Property Name="ScriptId" Type="int" Nullable="false" />
+    <Property Name="ScriptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PatientId" Type="int" />
     <Property Name="MedicationId" Type="int" />
     <Property Name="MPId" Type="int" />
@@ -69,7 +69,7 @@
     <Property Name="create_ts" Type="datetime" />
     <Property Name="delete_ts" Type="datetime" />
   </EntityType>
-  <Association Name="FK__MedicalPr__UserI__68487DD7">
+  <Association Name="FK__MedicalPr__UserI__29221CFB">
     <End Role="users" Type="Self.users" Multiplicity="0..1" />
     <End Role="MedicalProfessional" Type="Self.MedicalProfessional" Multiplicity="*" />
     <ReferentialConstraint>
@@ -81,7 +81,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__MpToPatie__Patie__6C190EBB">
+  <Association Name="FK__MpToPatie__Patie__2CF2ADDF">
     <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
     <End Role="MpToPatient" Type="Self.MpToPatient" Multiplicity="*" />
     <ReferentialConstraint>
@@ -93,7 +93,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__MpToPatien__MPId__6B24EA82">
+  <Association Name="FK__MpToPatien__MPId__2BFE89A6">
     <End Role="MedicalProfessional" Type="Self.MedicalProfessional" Multiplicity="0..1" />
     <End Role="MpToPatient" Type="Self.MpToPatient" Multiplicity="*" />
     <ReferentialConstraint>
@@ -105,7 +105,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Patient__UserId__5CD6CB2B">
+  <Association Name="FK__Patient__UserId__2180FB33">
     <End Role="users" Type="Self.users" Multiplicity="0..1" />
     <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
     <ReferentialConstraint>
@@ -117,7 +117,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Pharmacy__UserId__619B8048">
+  <Association Name="FK__Pharmacy__UserId__2645B050">
     <End Role="users" Type="Self.users" Multiplicity="0..1" />
     <End Role="Pharmacy" Type="Self.Pharmacy" Multiplicity="*" />
     <ReferentialConstraint>
@@ -129,7 +129,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Scripts__Medicat__6FE99F9F">
+  <Association Name="FK__Scripts__Medicat__30C33EC3">
     <End Role="Medication" Type="Self.Medication" Multiplicity="0..1" />
     <End Role="Scripts" Type="Self.Scripts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -141,7 +141,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Scripts__MPId__71D1E811">
+  <Association Name="FK__Scripts__MPId__32AB8735">
     <End Role="MedicalProfessional" Type="Self.MedicalProfessional" Multiplicity="0..1" />
     <End Role="Scripts" Type="Self.Scripts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -153,7 +153,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Scripts__Patient__6EF57B66">
+  <Association Name="FK__Scripts__Patient__2FCF1A8A">
     <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
     <End Role="Scripts" Type="Self.Scripts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -165,7 +165,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Scripts__PharmId__70DDC3D8">
+  <Association Name="FK__Scripts__PharmId__31B762FC">
     <End Role="Pharmacy" Type="Self.Pharmacy" Multiplicity="0..1" />
     <End Role="Scripts" Type="Self.Scripts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -185,39 +185,39 @@
     <EntitySet Name="Pharmacy" EntityType="Self.Pharmacy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Scripts" EntityType="Self.Scripts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__MedicalPr__UserI__68487DD7" Association="Self.FK__MedicalPr__UserI__68487DD7">
+    <AssociationSet Name="FK__MedicalPr__UserI__29221CFB" Association="Self.FK__MedicalPr__UserI__29221CFB">
       <End Role="users" EntitySet="users" />
       <End Role="MedicalProfessional" EntitySet="MedicalProfessional" />
     </AssociationSet>
-    <AssociationSet Name="FK__MpToPatie__Patie__6C190EBB" Association="Self.FK__MpToPatie__Patie__6C190EBB">
+    <AssociationSet Name="FK__MpToPatie__Patie__2CF2ADDF" Association="Self.FK__MpToPatie__Patie__2CF2ADDF">
       <End Role="Patient" EntitySet="Patient" />
       <End Role="MpToPatient" EntitySet="MpToPatient" />
     </AssociationSet>
-    <AssociationSet Name="FK__MpToPatien__MPId__6B24EA82" Association="Self.FK__MpToPatien__MPId__6B24EA82">
+    <AssociationSet Name="FK__MpToPatien__MPId__2BFE89A6" Association="Self.FK__MpToPatien__MPId__2BFE89A6">
       <End Role="MedicalProfessional" EntitySet="MedicalProfessional" />
       <End Role="MpToPatient" EntitySet="MpToPatient" />
     </AssociationSet>
-    <AssociationSet Name="FK__Patient__UserId__5CD6CB2B" Association="Self.FK__Patient__UserId__5CD6CB2B">
+    <AssociationSet Name="FK__Patient__UserId__2180FB33" Association="Self.FK__Patient__UserId__2180FB33">
       <End Role="users" EntitySet="users" />
       <End Role="Patient" EntitySet="Patient" />
     </AssociationSet>
-    <AssociationSet Name="FK__Pharmacy__UserId__619B8048" Association="Self.FK__Pharmacy__UserId__619B8048">
+    <AssociationSet Name="FK__Pharmacy__UserId__2645B050" Association="Self.FK__Pharmacy__UserId__2645B050">
       <End Role="users" EntitySet="users" />
       <End Role="Pharmacy" EntitySet="Pharmacy" />
     </AssociationSet>
-    <AssociationSet Name="FK__Scripts__Medicat__6FE99F9F" Association="Self.FK__Scripts__Medicat__6FE99F9F">
+    <AssociationSet Name="FK__Scripts__Medicat__30C33EC3" Association="Self.FK__Scripts__Medicat__30C33EC3">
       <End Role="Medication" EntitySet="Medication" />
       <End Role="Scripts" EntitySet="Scripts" />
     </AssociationSet>
-    <AssociationSet Name="FK__Scripts__MPId__71D1E811" Association="Self.FK__Scripts__MPId__71D1E811">
+    <AssociationSet Name="FK__Scripts__MPId__32AB8735" Association="Self.FK__Scripts__MPId__32AB8735">
       <End Role="MedicalProfessional" EntitySet="MedicalProfessional" />
       <End Role="Scripts" EntitySet="Scripts" />
     </AssociationSet>
-    <AssociationSet Name="FK__Scripts__Patient__6EF57B66" Association="Self.FK__Scripts__Patient__6EF57B66">
+    <AssociationSet Name="FK__Scripts__Patient__2FCF1A8A" Association="Self.FK__Scripts__Patient__2FCF1A8A">
       <End Role="Patient" EntitySet="Patient" />
       <End Role="Scripts" EntitySet="Scripts" />
     </AssociationSet>
-    <AssociationSet Name="FK__Scripts__PharmId__70DDC3D8" Association="Self.FK__Scripts__PharmId__70DDC3D8">
+    <AssociationSet Name="FK__Scripts__PharmId__31B762FC" Association="Self.FK__Scripts__PharmId__31B762FC">
       <End Role="Pharmacy" EntitySet="Pharmacy" />
       <End Role="Scripts" EntitySet="Scripts" />
     </AssociationSet>

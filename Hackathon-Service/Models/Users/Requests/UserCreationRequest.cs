@@ -12,5 +12,6 @@ namespace Hackathon_Service.Models.Users.Requests
         public string lastName { get; set; }
         public string email { get; set; }
         public string password { get; set; }
+        public int accountType { get; set; }
     }
 }
