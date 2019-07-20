@@ -41,6 +41,7 @@ namespace Hackathon_Service.Repositories
                 {
                     DOB = request.DOB,
                     Gender = request.Gender,
+                    AtRisk = request.AtRisk,
                     SocialSecurity = request.SocialSecurity,
                     UserId = userId
                 };
