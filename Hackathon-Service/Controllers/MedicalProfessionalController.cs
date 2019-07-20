@@ -98,6 +98,11 @@ namespace Hackathon_Service.Controllers
             }
         }
 
+        [Route("FillMedication")]
+        public void fillMedication(int scriptId)
+        {
+            medicalProfessionalRepository.fillMedication(scriptId);
+        }
 
     }
 }

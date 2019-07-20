@@ -102,6 +102,20 @@ namespace Hackathon_Service.Repositories
             }
         }
 
+        internal void fillMedication(int scriptId)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var script = context.Scripts.FirstOrDefault(x => x.ScriptId == scriptId);
+                if(script != null)
+                {
+                    script.DateFilled = DateTime.Now;
+                    context.SaveChanges();
+                }
+
+            }
+        }
+
         public void assignMedication(ScriptRequest request)
         {
             using (var context = new HackathonEntities())
