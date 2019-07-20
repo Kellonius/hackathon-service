@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon-Service", "Hackat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon-DataAccess", "Hackathon-DataAccess\Hackathon-DataAccess.csproj", "{52E38A99-B727-4FE2-99A0-659F4A85DC59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon-PharmacyProcessor", "Hackathon-PharmacyProcessor\Hackathon-PharmacyProcessor.csproj", "{42ED3B8E-E2C3-4278-9430-7F60FAE9E671}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{52E38A99-B727-4FE2-99A0-659F4A85DC59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52E38A99-B727-4FE2-99A0-659F4A85DC59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52E38A99-B727-4FE2-99A0-659F4A85DC59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42ED3B8E-E2C3-4278-9430-7F60FAE9E671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42ED3B8E-E2C3-4278-9430-7F60FAE9E671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42ED3B8E-E2C3-4278-9430-7F60FAE9E671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42ED3B8E-E2C3-4278-9430-7F60FAE9E671}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
