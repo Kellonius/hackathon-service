@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Hackathon_Service.Models.Users.Responses;
+using Hackathon_Service.Models;
 
 namespace Hackathon_Service.Repositories
 {
@@ -98,6 +99,38 @@ namespace Hackathon_Service.Repositories
                     results.Add(result);
                 };
                 return results;
+            }
+        }
+
+        public void assignMedication(ScriptRequest request)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var medication = new Medication()
+                {
+                    GenericName = request.MedicationGenericName,
+                    MedicalName = request.MedicationMedicalName
+                };
+                context.Medications.Add(medication);
+                context.SaveChanges();
+
+                medication = context.Medications.FirstOrDefault(x => x.GenericName == request.MedicationGenericName &&
+                    x.MedicalName == request.MedicationMedicalName);
+                var script = new Script()
+                {
+                    MPId = request.medicalProfessionalId,
+                    PatientId = request.patientId,
+                    MedicationId = medication.MedicationId,
+                    PharmId = request.pharmacyId,
+                    Dosage = request.Dosage,
+                    MedicationTime = request.MedicationTime,
+                    MedicationRoute = request.MedicationRoute,
+                    DateIssued = DateTime.Now
+
+                };
+                context.Scripts.Add(script);
+                context.SaveChanges();
+                context.Dispose();
             }
         }
 

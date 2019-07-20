@@ -85,30 +85,12 @@ namespace Hackathon_Service.Controllers
         }
 
         [Route("AssignMedication")]
-        public void assignMedication(int medicalProfessionalId, int patientId, int pharmacyId, ScriptRequest request)
+        public void assignMedication(ScriptRequest request)
         {
             var response = new HttpResponseMessage();
             try
             {
-                using (var context = new HackathonEntities())
-                {
-
-                    var script = new Script()
-                    {
-                        MPId = medicalProfessionalId,
-                        PatientId = patientId,
-                        MedicationId = request.MedicationId,
-                        PharmId = pharmacyId,
-                        Dosage = request.Dosage,
-                        MedicationTime = request.MedicationTime,
-                        MedicationRoute = request.MedicationRoute,
-                        DateIssued = DateTime.Now
-                        
-                    };
-                    context.Scripts.Add(script);
-                    context.SaveChanges();
-                    context.Dispose();
-                }
+                medicalProfessionalRepository.assignMedication(request);
             }
             catch (Exception e)
             {
