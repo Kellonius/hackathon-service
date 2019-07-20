@@ -51,6 +51,17 @@ namespace Hackathon_Service.Repositories
             }
         }
 
+        internal void patientPickedUpMedication(int scriptId)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var script = context.Scripts.FirstOrDefault(x => x.ScriptId == scriptId);
+                script.DatePickedUp = DateTime.Now;
+                context.SaveChanges();
+                context.Dispose();
+            }
+        }
+
         public Patient getPatientInfo(int userId)
         {
             using (var context = new HackathonEntities())
@@ -89,7 +100,13 @@ namespace Hackathon_Service.Repositories
                 foreach(var id in scriptIds)
                 {
                     var script = context.Scripts.FirstOrDefault(x => x.ScriptId == id);
-                    scripts.Add(new ScriptModel(script));
+                    var medicalProfessional = context.MedicalProfessionals.FirstOrDefault(x => x.MPId == script.MPId);
+                    var medicalProfessionalUser = context.users.FirstOrDefault(x => x.id == medicalProfessional.UserId);
+                    scripts.Add(new ScriptModel(script) {
+                        PrescribedBy = "Dr. " + medicalProfessionalUser.first_name + " " + medicalProfessionalUser.last_name,
+                        Phone = medicalProfessional.Phone,
+                        Email = medicalProfessional.Email
+                    });
                 }
                 context.Dispose();
                 return scripts;

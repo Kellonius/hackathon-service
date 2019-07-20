@@ -29,7 +29,11 @@ namespace Hackathon_Service.Controllers
             return patientRepository.getAllPatientData(userEmail);
         }
 
-        
+        [Route("PatientPickedUpMedication")]
+        public void PatientPickedUpMedication(int scriptId)
+        {
+            patientRepository.patientPickedUpMedication(scriptId);
+        }
 
         //[Route("CreatePatientFromExistingUser")]
         //public void createPatient(int userId)
