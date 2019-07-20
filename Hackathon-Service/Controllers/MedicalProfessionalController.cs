@@ -10,6 +10,7 @@ using Hackathon_Service.Repositories;
 using Hackathon_Service.Repositories.Interfaces;
 using Hackathon_Service.Models.Epic;
 using System.Collections.Generic;
+using Hackathon_Service.Models.Users.Responses;
 
 namespace Hackathon_Service.Controllers
 {
