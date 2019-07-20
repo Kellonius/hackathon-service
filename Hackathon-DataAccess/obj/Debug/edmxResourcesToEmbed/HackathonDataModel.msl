@@ -17,6 +17,9 @@
     <EntitySetMapping Name="MedicalProfessionals">
       <EntityTypeMapping TypeName="hackathonModel.MedicalProfessional">
         <MappingFragment StoreEntitySet="MedicalProfessional">
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="MPId" ColumnName="MPId" />
         </MappingFragment>
@@ -54,6 +57,7 @@
     <EntitySetMapping Name="Pharmacies">
       <EntityTypeMapping TypeName="hackathonModel.Pharmacy">
         <MappingFragment StoreEntitySet="Pharmacy">
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Location" ColumnName="Location" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="PharmId" ColumnName="PharmId" />

@@ -69,6 +69,9 @@
     <NavigationProperty Name="user" Relationship="hackathonModel.FK__MedicalPr__UserI__68487DD7" FromRole="MedicalProfessional" ToRole="user" />
     <NavigationProperty Name="MpToPatients" Relationship="hackathonModel.FK__MpToPatien__MPId__6B24EA82" FromRole="MedicalProfessional" ToRole="MpToPatient" />
     <NavigationProperty Name="Scripts" Relationship="hackathonModel.FK__Scripts__MPId__71D1E811" FromRole="MedicalProfessional" ToRole="Script" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Medication">
     <Key>
@@ -111,6 +114,7 @@
     <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="user" Relationship="hackathonModel.FK__Pharmacy__UserId__619B8048" FromRole="Pharmacy" ToRole="user" />
     <NavigationProperty Name="Scripts" Relationship="hackathonModel.FK__Scripts__PharmId__70DDC3D8" FromRole="Pharmacy" ToRole="Script" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Script">
     <Key>
