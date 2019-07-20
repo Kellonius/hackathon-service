@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Hackathon_DataAccess;
 using Hackathon_Service.Models;
+using Hackathon_Service.Models.Users;
 using Hackathon_Service.Models.Users.Responses;
 using Hackathon_Service.Repositories;
 
@@ -33,6 +34,13 @@ namespace Hackathon_Service.Controllers
         public void PatientPickedUpMedication(int scriptId)
         {
             patientRepository.patientPickedUpMedication(scriptId);
+        }
+
+        [HttpPost]
+        [Route("UpdatePatient")]
+        public PatientDataResponse UpdatePatient(PatientUpdateRequest request)
+        {
+            return patientRepository.updatePatient(request);
         }
 
         //[Route("CreatePatientFromExistingUser")]

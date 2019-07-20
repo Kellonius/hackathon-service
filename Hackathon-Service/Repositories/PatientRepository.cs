@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using Hackathon_Service.Models.Users.Responses;
 using Hackathon_Service.Models;
+using Hackathon_Service.Models.Users;
 
 namespace Hackathon_Service.Repositories
 {
@@ -123,6 +124,26 @@ namespace Hackathon_Service.Repositories
                 var patient = context.Patients.FirstOrDefault(x => x.PatientId == patientId);
                 context.Dispose();
                 return patient;
+            }
+        }
+
+        public PatientDataResponse updatePatient(PatientUpdateRequest request)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var user = context.users.FirstOrDefault(x => x.id == request.userId);
+                user.first_name = request.firstName;
+                user.last_name = request.lastName;
+                user.email = request.email;
+
+                var patient = context.Patients.FirstOrDefault(x => x.UserId == request.userId);
+                patient.Gender = request.Gender;
+                patient.DOB = DateTime.Parse(request.DOB);
+
+                context.SaveChanges();
+                context.Dispose();
+
+                return getAllPatientData(request.email);
             }
         }
     }

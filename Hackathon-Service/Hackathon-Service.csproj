@@ -206,6 +206,7 @@
     <Compile Include="Models\Medication\ScriptModel.cs" />
     <Compile Include="Models\Medication\ScriptRequest.cs" />
     <Compile Include="Models\Users\PatientDataRequest.cs" />
+    <Compile Include="Models\Users\PatientUpdateRequest.cs" />
     <Compile Include="Models\Users\Requests\MedicalProfessionalRequest.cs" />
     <Compile Include="Models\Users\Requests\PharmacyCreationRequest.cs" />
     <Compile Include="Models\Users\Requests\PatientCreationRequest.cs" />
