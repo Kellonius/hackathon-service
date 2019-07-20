@@ -94,7 +94,8 @@ namespace Hackathon_Service.Repositories
                         firstName = user.first_name,
                         lastName = user.last_name,
                         email = user.email,
-                        DOB = patient.DOB,
+                        AtRisk = patient.AtRisk.Value ? "Yes" : "No",
+                        DOB = patient.DOB.Value.ToString("MM-dd-yyyy"),
                         Gender = patient.Gender,
                         Scripts = scripts
                     };

@@ -40,6 +40,7 @@
           <Property Name="DOB" Type="datetime" />
           <Property Name="SocialSecurity" Type="nvarchar" MaxLength="20" />
           <Property Name="Gender" Type="nvarchar" MaxLength="30" />
+          <Property Name="AtRisk" Type="bit" />
         </EntityType>
         <EntityType Name="Pharmacy">
           <Key>
@@ -339,6 +340,7 @@
           <NavigationProperty Name="MpToPatients" Relationship="hackathonModel.FK__MpToPatie__Patie__6C190EBB" FromRole="Patient" ToRole="MpToPatient" />
           <NavigationProperty Name="user" Relationship="hackathonModel.FK__Patient__UserId__5CD6CB2B" FromRole="Patient" ToRole="user" />
           <NavigationProperty Name="Scripts" Relationship="hackathonModel.FK__Scripts__Patient__6EF57B66" FromRole="Patient" ToRole="Script" />
+          <Property Name="AtRisk" Type="Boolean" />
         </EntityType>
         <EntityType Name="Pharmacy">
           <Key>
@@ -530,6 +532,7 @@
           <EntitySetMapping Name="Patients">
             <EntityTypeMapping TypeName="hackathonModel.Patient">
               <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="AtRisk" ColumnName="AtRisk" />
                 <ScalarProperty Name="SocialSecurity" ColumnName="SocialSecurity" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />

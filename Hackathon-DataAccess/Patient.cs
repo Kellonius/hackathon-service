@@ -26,6 +26,7 @@ namespace Hackathon_DataAccess
         public Nullable<System.DateTime> DOB { get; set; }
         public string Gender { get; set; }
         public string SocialSecurity { get; set; }
+        public Nullable<bool> AtRisk { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MpToPatient> MpToPatients { get; set; }
