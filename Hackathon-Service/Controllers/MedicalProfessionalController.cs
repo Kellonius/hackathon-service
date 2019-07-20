@@ -85,6 +85,16 @@ namespace Hackathon_Service.Controllers
             return results;
         }
 
+
+        [HttpGet]
+        [Route("GetExistingNewPatientsForMP")]
+        public List<PatientDataResponse> getExistingNewPatientsForMP(string userEmail)
+        {
+            var medicalProfessionalData = medicalProfessionalRepository.getAllMedicalProfessionalData(userEmail);
+            var results = medicalProfessionalRepository.getExistingNewPatientsForMP(medicalProfessionalData.MPId);
+            return results;
+        }
+
         [Route("AssignMedication")]
         public void assignMedication(ScriptRequest request)
         {

@@ -105,6 +105,33 @@ namespace Hackathon_Service.Repositories
             }
         }
 
+        public List<PatientDataResponse> getExistingNewPatientsForMP(int medicalProfessionalId)
+        {
+
+            using (var context = new HackathonEntities())
+            {
+                var patientIdList = context.MpToPatients.Where(x => x.MPId != medicalProfessionalId).Select(x => x.PatientId).ToList();
+                var results = new List<PatientDataResponse>();
+                foreach (var patientId in patientIdList)
+                {
+                    var patient = patientRepository.getPatientDataFromId(patientId);
+                    var user = userRepository.getUserInfoFromId(patient.UserId);
+                    var result = new PatientDataResponse()
+                    {
+                        id = user.id,
+                        firstName = user.first_name,
+                        lastName = user.last_name,
+                        email = user.email,
+                        AtRisk = patient.AtRisk.Value ? "Yes" : "No",
+                        DOB = patient.DOB.Value.ToString("MM-dd-yyyy"),
+                        Gender = patient.Gender,
+                    };
+                    results.Add(result);
+                };
+                return results;
+            }
+        }
+
         internal void fillMedication(int scriptId)
         {
             using (var context = new HackathonEntities())
