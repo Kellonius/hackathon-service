@@ -214,6 +214,7 @@
     <Compile Include="Models\Epic\ValidityPeriod.cs" />
     <Compile Include="Models\Users\Requests\UserCreationRequest.cs" />
     <Compile Include="Models\Users\Requests\UserLoginRequest.cs" />
+    <Compile Include="Models\Users\Responses\MedicalProfessionalDataResponse.cs" />
     <Compile Include="Models\Users\Responses\PatientDataResponse.cs" />
     <Compile Include="Models\Users\Responses\UserResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

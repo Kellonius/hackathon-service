@@ -74,5 +74,15 @@ namespace Hackathon_Service.Repositories
             };
             return response;
         }
+
+        public Patient getPatientDataFromId(int? patientId)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var patient = context.Patients.FirstOrDefault(x => x.PatientId == patientId);
+                context.Dispose();
+                return patient;
+            }
+        }
     }
 }

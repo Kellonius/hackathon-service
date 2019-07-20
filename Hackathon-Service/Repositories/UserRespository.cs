@@ -47,6 +47,16 @@ namespace Hackathon_Service.Repositories
             }
         }
 
+        public user getUserInfoFromId(int? id)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var user = context.users.FirstOrDefault(x => x.id == id);
+                context.Dispose();
+                return user;
+            }
+        }
+
         private string HashPassword(string word)
         {
             byte[] salt;

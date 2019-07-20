@@ -11,6 +11,7 @@ using Hackathon_Service.Models.Users.Responses;
 using Hackathon_Service.Repositories;
 using Hackathon_Service.Repositories.Interfaces;
 using Hackathon_Service.Models.Epic;
+using System.Collections.Generic;
 
 namespace Hackathon_Service.Controllers
 {
@@ -27,15 +28,15 @@ namespace Hackathon_Service.Controllers
             medicalProfessionalRepository = new MedicalProfessionalRepository();
         }
 
-        [Route("CreateMedicalProfessional")]
-        public void createMedicalProfessional(int userId)
+        [Route("CreateMedicalProfessionalWithExistingUserId")]
+        public void createMedicalProfessionalWithExistingUserId(int userId)
         {
             medicalProfessionalRepository.CreateMedicalProfessional(userId);
         }
 
 
-        [Route("CreatePatient")]
-        public void createPatient(PatientCreationRequest patientRequest)
+        [Route("CreatePatientAndTieToMP")]
+        public void createPatientAndTieToMP(PatientCreationRequest patientRequest)
         {
             var response = new HttpResponseMessage();
             try
@@ -61,6 +62,27 @@ namespace Hackathon_Service.Controllers
             {
                 throw new HttpResponseException(response);
             }
+        }
+
+        [HttpGet]
+        [Route("GetMedicalProfessionalData")]
+        public MedicalProfessionalDataResponse GetMedicalProfessionalData(string userEmail)
+        {
+            return medicalProfessionalRepository.getAllMedicalProfessionalData(userEmail);
+        }
+
+        [Route("AssignPatientToMp")]
+        public void assignPatientToMp(int medicalProfessionalId, int patientId)
+        {
+            medicalProfessionalRepository.assignPatientToMp(medicalProfessionalId, patientId);
+        }
+
+        [HttpGet]
+        [Route("GetPatientsForMP")]
+        public List<PatientDataResponse> getPatientsForMP(int medicalProfessionalId)
+        {
+            var results = medicalProfessionalRepository.getPatientsForMP(medicalProfessionalId);
+            return results;
         }
 
         [Route("AssignMedication")]
