@@ -25,6 +25,18 @@ namespace Hackathon_Service.Controllers
         }
 
         /// <summary>
+        /// Return patient data by passing in a patient id.
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetPatientDataById")]
+        public PatientDataResponse GetPatientDataById(int patientId)
+        {
+            return patientRepository.GetPatientDataById(patientId);
+        }
+
+        /// <summary>
         /// Get patient data by passing in the PatientDataRequest.
         /// </summary>
         /// <param name="patient"></param>
