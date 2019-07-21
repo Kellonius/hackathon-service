@@ -24,6 +24,11 @@ namespace Hackathon_Service.Controllers
             patientRepository = new PatientRepository();
         }
 
+        /// <summary>
+        /// Get patient data by passing in the PatientDataRequest.
+        /// </summary>
+        /// <param name="patient"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetPatientData")]
         public PatientDataResponse GetPatientData(PatientDataRequest patient)
@@ -31,12 +36,21 @@ namespace Hackathon_Service.Controllers
             return patientRepository.getAllPatientData(patient.userEmail);
         }
 
+        /// <summary>
+        /// Update script to note that the patient has picked up the prescription as DateTime.Now when passing in the ScriptId
+        /// </summary>
+        /// <param name="scriptId"></param>
         [Route("PatientPickedUpMedication")]
         public void PatientPickedUpMedication(int scriptId)
         {
             patientRepository.patientPickedUpMedication(scriptId);
         }
 
+        /// <summary>
+        /// Search patients based on a set of terms.
+        /// </summary>
+        /// <param name="terms"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("SearchPatients")]
         public List<PatientDataResponse> SearchPatients(string terms)
@@ -44,30 +58,16 @@ namespace Hackathon_Service.Controllers
             return patientRepository.SearchPatients(terms);
         }
 
+        /// <summary>
+        /// Update a specific patient's details by passing in a PatientUpdateRequest
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("UpdatePatient")]
         public PatientDataResponse UpdatePatient(PatientUpdateRequest request)
         {
             return patientRepository.updatePatient(request);
         }
-
-        //[Route("CreatePatientFromExistingUser")]
-        //public void createPatient(int userId)
-        //{
-        //    var response = new HttpResponseMessage();
-        //    try
-        //    {
-
-        //        using (var context = new HackathonEntities())
-        //        {
-                    
-        //            patientRepository.(patientRequest);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new HttpResponseException(response);
-        //    }
-        //}
     }
 }
