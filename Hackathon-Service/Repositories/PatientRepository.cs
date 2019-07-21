@@ -74,9 +74,41 @@ namespace Hackathon_Service.Repositories
             }
         }
 
+        public void patientUsedMedication(int scriptId)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var script = context.Scripts.FirstOrDefault(x => x.ScriptId == scriptId);
+                var patientUsage = new PatientUsage(script)
+                {
+                    DateTaken = DateTime.Now
+                };
+                context.PatientUsages.Add(patientUsage);
+                context.SaveChanges();
+                context.Dispose();
+            }
+        }
+
+        public void patientDeniedMedication(PatientDeniedMedicationRequest request)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var script = context.Scripts.FirstOrDefault(x => x.ScriptId == request.ScriptId);
+                var patientDenied = new PatientDenied(script)
+                {
+                    DateDenied = DateTime.Now,
+                    Reason = request.Reason
+                };
+                context.PatientDenieds.Add(patientDenied);
+                context.SaveChanges();
+                context.Dispose();
+            }
+        }
+
+
         public PatientDataResponse GetPatientDataById(int patientId)
         {
-            using(var context = new HackathonEntities())
+            using (var context = new HackathonEntities())
             {
                 var patient = context.Patients.FirstOrDefault(p => p.PatientId == patientId);
                 var user = patient.user;
@@ -94,6 +126,7 @@ namespace Hackathon_Service.Repositories
                 };
             }
         }
+
 
         public PatientDataResponse getAllPatientData(string userEmail)
         {

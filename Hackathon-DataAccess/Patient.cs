@@ -19,6 +19,8 @@ namespace Hackathon_DataAccess
         {
             this.MpToPatients = new HashSet<MpToPatient>();
             this.Scripts = new HashSet<Script>();
+            this.PatientDenieds = new HashSet<PatientDenied>();
+            this.PatientUsages = new HashSet<PatientUsage>();
         }
     
         public int PatientId { get; set; }
@@ -33,5 +35,9 @@ namespace Hackathon_DataAccess
         public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Script> Scripts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientDenied> PatientDenieds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientUsage> PatientUsages { get; set; }
     }
 }

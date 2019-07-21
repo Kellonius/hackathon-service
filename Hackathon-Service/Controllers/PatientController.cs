@@ -6,6 +6,7 @@ using System.Web.Http.Cors;
 using Hackathon_DataAccess;
 using Hackathon_Service.Models;
 using Hackathon_Service.Models.Users;
+using Hackathon_Service.Models.Users.Requests;
 using Hackathon_Service.Models.Users.Responses;
 using Hackathon_Service.Repositories;
 
@@ -56,6 +57,28 @@ namespace Hackathon_Service.Controllers
         public void PatientPickedUpMedication(int scriptId)
         {
             patientRepository.patientPickedUpMedication(scriptId);
+        }
+
+
+        /// <summary>
+        /// Update PatientUsage table to know that user used the medication that day.
+        /// </summary>
+        /// <param name="scriptId"></param>
+        [Route("PatientUsedMedication")]
+        public void PatientUsedMedication(int scriptId)
+        {
+            patientRepository.patientUsedMedication(scriptId);
+        }
+
+
+        /// <summary>
+        /// Update PatientDenied table with reason why patient didn't take medicine.
+        /// </summary>
+        /// <param name="scriptId"></param>
+        [Route("PatientDeniedMedication")]
+        public void PatientDeniedMedication(PatientDeniedMedicationRequest request)
+        {
+            patientRepository.patientDeniedMedication(request);
         }
 
         /// <summary>

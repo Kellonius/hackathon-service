@@ -33,5 +33,7 @@ namespace Hackathon_DataAccess
         public virtual DbSet<Pharmacy> Pharmacies { get; set; }
         public virtual DbSet<Script> Scripts { get; set; }
         public virtual DbSet<PharmacyEvent> PharmacyEvents { get; set; }
+        public virtual DbSet<PatientDenied> PatientDenieds { get; set; }
+        public virtual DbSet<PatientUsage> PatientUsages { get; set; }
     }
 }

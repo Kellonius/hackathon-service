@@ -77,6 +77,12 @@
     <Compile Include="Patient.cs">
       <DependentUpon>HackathonDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PatientDenied.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PatientUsage.cs">
+      <DependentUpon>HackathonDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pharmacy.cs">
       <DependentUpon>HackathonDataModel.tt</DependentUpon>
     </Compile>
