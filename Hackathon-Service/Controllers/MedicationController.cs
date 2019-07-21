@@ -224,6 +224,7 @@ namespace Hackathon_Service.Controllers
                 {
                     Month = month,
                     Year = year.ToString(),
+                    MonthInt = monthInt,
                     PickedUpPrescriptions = scriptsForMonth.Count(s => s.DatePickedUp != null),
                     UnPickedUpPrescriptions = scriptsForMonth.Count(s => s.DatePickedUp == null)
                 });
@@ -231,7 +232,7 @@ namespace Hackathon_Service.Controllers
 
             foreach(var year in years)
             {
-                var monthlyReportsForYear = monthlyReports.Where(x => x.Year == year).ToList();
+                var monthlyReportsForYear = monthlyReports.Where(x => x.Year == year).OrderBy(m => m.MonthInt).ToList();
                 var yearlyReport = new YearlyReport()
                 {
                     Year = year,

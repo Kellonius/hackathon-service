@@ -4,6 +4,7 @@ namespace Hackathon_Service.Reports
     {
         public string Month { get; set; }
         public string Year { get; set; }
+        public int MonthInt { get; set; }
         public int PickedUpPrescriptions { get; set; }
         public int UnPickedUpPrescriptions { get; set; }
     }
