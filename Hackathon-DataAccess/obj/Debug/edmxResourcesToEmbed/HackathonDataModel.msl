@@ -92,5 +92,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PatientDenieds">
+      <EntityTypeMapping TypeName="hackathonModel.PatientDenied">
+        <MappingFragment StoreEntitySet="PatientDenied">
+          <ScalarProperty Name="DateDenied" ColumnName="DateDenied" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="MedicationId" ColumnName="MedicationId" />
+          <ScalarProperty Name="ScriptId" ColumnName="ScriptId" />
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+          <ScalarProperty Name="PatientDeniedId" ColumnName="PatientDeniedId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PatientUsages">
+      <EntityTypeMapping TypeName="hackathonModel.PatientUsage">
+        <MappingFragment StoreEntitySet="PatientUsage">
+          <ScalarProperty Name="DateTaken" ColumnName="DateTaken" />
+          <ScalarProperty Name="MedicationId" ColumnName="MedicationId" />
+          <ScalarProperty Name="ScriptId" ColumnName="ScriptId" />
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+          <ScalarProperty Name="PatientUsageId" ColumnName="PatientUsageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
