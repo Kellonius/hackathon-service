@@ -229,6 +229,7 @@
     <Compile Include="Models\Users\Responses\PatientDataResponse.cs" />
     <Compile Include="Models\Users\Responses\UserResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\TimingReport.cs" />
     <Compile Include="Reports\YearlyReport.cs" />
     <Compile Include="Reports\MonthlyReport.cs" />
     <Compile Include="Repositories\MedicalProfessionalRepository.cs" />

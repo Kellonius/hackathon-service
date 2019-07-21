@@ -245,5 +245,51 @@ namespace Hackathon_Service.Controllers
 
 
         }
+
+        [HttpGet]
+        [Route("LengthOfTimeToPickUpPrescriptions")]
+        public List<TimingReport> LengthOfTimeToPickUpPrescriptions()
+        {
+            var scripts = _medicationRepository.GetPrescriptions().Where(s => s.DateIssued.HasValue)
+                .OrderBy(s => s.DateIssued).ToList();
+
+            var response = new Dictionary<string, int>();
+
+            foreach (var script in scripts)
+            {
+                if (script.DateFilled == null)
+                    continue;
+                
+                if (script.DatePickedUp == null)
+                {
+                    if (response.ContainsKey("Never"))
+                    {
+                        response["Never"] += 1;
+                    }
+                    else
+                    {
+                        response.Add("Never", 1);
+                    }
+
+                    continue;
+                }
+
+                var timeToPickUpInDays = Math.Ceiling((script.DatePickedUp.Value - script.DateFilled.Value).TotalDays);
+                if (response.ContainsKey(timeToPickUpInDays.ToString()))
+                {
+                    response[timeToPickUpInDays.ToString()] += 1;
+                }
+                else
+                {
+                    response.Add(timeToPickUpInDays.ToString(), 1);
+                }
+            }
+
+            return response.Select(r => new TimingReport
+            {
+                Display = r.Key,
+                Occurrences =  r.Value
+            }).OrderBy(r => r.Display).ToList();
+        }
     }
 }
