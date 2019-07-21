@@ -74,6 +74,27 @@ namespace Hackathon_Service.Repositories
             }
         }
 
+        public PatientDataResponse GetPatientDataById(int patientId)
+        {
+            using(var context = new HackathonEntities())
+            {
+                var patient = context.Patients.FirstOrDefault(p => p.PatientId == patientId);
+                var user = patient.user;
+                var patientScripts = getPatientScripts(patientId);
+                return new PatientDataResponse()
+                {
+                    id = user.id,
+                    firstName = user.first_name,
+                    lastName = user.last_name,
+                    email = user.email,
+                    AtRisk = patient.AtRisk.Value ? "Yes" : "No",
+                    DOB = patient.DOB.Value.ToString("MM-dd-yyyy"),
+                    Gender = patient.Gender,
+                    Scripts = patientScripts
+                };
+            }
+        }
+
         public PatientDataResponse getAllPatientData(string userEmail)
         {
             var user = userRepository.getUserInfo(userEmail);

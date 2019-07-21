@@ -9,12 +9,11 @@ namespace Hackathon_Service.Repositories
 {
     public class MedicationRepository
     {
-        public List<Medication> GetMedicationByPatient(int userId)
+        public List<Medication> GetMedicationByPatient(int patientId)
         {
             using (var context = new HackathonEntities())
             {
                 var meds = context.Medications.ToList();
-                var patientId = context.Patients.FirstOrDefault(x => x.UserId == userId).PatientId;
                 var returnedMeds = meds.Where(m =>
                     context.Scripts.Where(s => s.PatientId == patientId).Select(s => s.MedicationId)
                         .Contains(m.MedicationId)).ToList();

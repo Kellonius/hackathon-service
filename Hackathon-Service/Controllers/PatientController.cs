@@ -24,6 +24,13 @@ namespace Hackathon_Service.Controllers
             patientRepository = new PatientRepository();
         }
 
+        [HttpGet]
+        [Route("GetPatientDataById")]
+        public PatientDataResponse GetPatientDataById(int patientId)
+        {
+            return patientRepository.GetPatientDataById(patientId);
+        }
+
         [HttpPost]
         [Route("GetPatientData")]
         public PatientDataResponse GetPatientData(PatientDataRequest patient)
