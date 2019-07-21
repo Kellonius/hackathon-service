@@ -182,7 +182,10 @@ namespace Hackathon_Service.Repositories
                     MedicationId = med.MedicationId,
                     Dosage = request.dosage,
                     MedicationTime = request.time,
-                    MPId = 6
+                    MPId = 6,
+                    DateIssued = DateTime.Now,
+                    DateFilled = DateTime.Now,
+                    DatePickedUp = DateTime.Now
                 };
 
                 context.Scripts.Add(script);

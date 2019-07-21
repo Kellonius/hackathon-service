@@ -27,13 +27,21 @@ namespace Hackathon_Service.Controllers
             medicalProfessionalRepository = new MedicalProfessionalRepository();
         }
 
+        /// <summary>
+        /// Pass in an existing user Id to make that user a Medical Professional.
+        /// </summary>
+        /// <param name="userId"></param>
         [Route("CreateMedicalProfessionalWithExistingUserId")]
         public void createMedicalProfessionalWithExistingUserId(int userId)
         {
             medicalProfessionalRepository.CreateMedicalProfessional(userId);
         }
 
-
+        /// <summary>
+        /// As a medical professional, pass a PatientCreationRequest to create a new user/patient and tie that patient to you as an MP.
+        /// PatientCreationRequest
+        /// </summary>
+        /// <param name="patientRequest"></param>
         [Route("CreatePatientAndTieToMP")]
         public void createPatientAndTieToMP(PatientCreationRequest patientRequest)
         {
