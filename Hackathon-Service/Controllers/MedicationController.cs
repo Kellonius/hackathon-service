@@ -42,6 +42,13 @@ namespace Hackathon_Service.Controllers
                 .ToList();
         }
 
+        [HttpGet]
+        [Route("GetMedicationsWithDosages")]
+        public List<MedicationDosage> GetMedicationsWithDosages(int patientId)
+        {
+            return _medicationRepository.GetMedicationDosagesByPatient(patientId).ToList();
+        }
+
         /// <summary>
         /// Get the specific prescriptions for a patient by passing the medications and patient info in the MedicaitonPrescriptionRequest
         /// </summary>

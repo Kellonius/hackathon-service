@@ -200,6 +200,7 @@
     <Compile Include="Models\Epic\MedicationOrder.cs" />
     <Compile Include="Models\Medication\MedicationAddRequest.cs" />
     <Compile Include="Models\Medication\MedicationDataRequest.cs" />
+    <Compile Include="Models\Medication\MedicationDosage.cs" />
     <Compile Include="Models\Medication\MedicationModel.cs" />
     <Compile Include="Models\Medication\MedicationPrescriptionRequest.cs" />
     <Compile Include="Models\Medication\PatientScript.cs" />

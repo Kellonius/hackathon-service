@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Hackathon_DataAccess;
+using Hackathon_Service.Models;
 using Hackathon_Service.Models.Medication;
 using Microsoft.Ajax.Utilities;
 
@@ -18,6 +19,23 @@ namespace Hackathon_Service.Repositories
                     context.Scripts.Where(s => s.PatientId == patientId).Select(s => s.MedicationId)
                         .Contains(m.MedicationId)).ToList();
                 return returnedMeds;
+            }
+        }
+
+        public List<MedicationDosage> GetMedicationDosagesByPatient(int patientId)
+        {
+            using (var context = new HackathonEntities())
+            {
+                var meds = context.Medications.ToList();
+                var returnedMeds = meds.Where(m =>
+                    context.Scripts.Where(s => s.PatientId == patientId).Select(s => s.MedicationId)
+                        .Contains(m.MedicationId)).ToList();
+                
+                return returnedMeds.Select(m => new MedicationDosage
+                {
+                    Medication = new MedicationModel(m),
+                    Script = new ScriptModel(context.Scripts.FirstOrDefault(s => s.MedicationId == m.MedicationId && s.PatientId == patientId))
+                }).ToList();
             }
         }
 

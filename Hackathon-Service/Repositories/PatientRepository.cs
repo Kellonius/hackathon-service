@@ -171,6 +171,7 @@ namespace Hackathon_Service.Repositories
                         new PatientDataResponse()
                         {
                             id = user.id,
+                            PatientId = pi.PatientId,
                             firstName = user.first_name,
                             lastName = user.last_name,
                             email = user.email,
