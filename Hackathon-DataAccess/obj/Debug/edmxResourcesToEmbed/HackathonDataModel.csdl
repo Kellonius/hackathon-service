@@ -49,6 +49,32 @@
       <End Role="Script" EntitySet="Scripts" />
       <End Role="PharmacyEvent" EntitySet="PharmacyEvents" />
     </AssociationSet>
+    <EntitySet Name="PatientDenieds" EntityType="hackathonModel.PatientDenied" />
+    <EntitySet Name="PatientUsages" EntityType="hackathonModel.PatientUsage" />
+    <AssociationSet Name="FK__PatientDe__Medic__40058253" Association="hackathonModel.FK__PatientDe__Medic__40058253">
+      <End Role="Medication" EntitySet="Medications" />
+      <End Role="PatientDenied" EntitySet="PatientDenieds" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientUs__Medic__3B40CD36" Association="hackathonModel.FK__PatientUs__Medic__3B40CD36">
+      <End Role="Medication" EntitySet="Medications" />
+      <End Role="PatientUsage" EntitySet="PatientUsages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientDe__Patie__3E1D39E1" Association="hackathonModel.FK__PatientDe__Patie__3E1D39E1">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="PatientDenied" EntitySet="PatientDenieds" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientUs__Patie__395884C4" Association="hackathonModel.FK__PatientUs__Patie__395884C4">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="PatientUsage" EntitySet="PatientUsages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientDe__Scrip__3F115E1A" Association="hackathonModel.FK__PatientDe__Scrip__3F115E1A">
+      <End Role="Script" EntitySet="Scripts" />
+      <End Role="PatientDenied" EntitySet="PatientDenieds" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientUs__Scrip__3A4CA8FD" Association="hackathonModel.FK__PatientUs__Scrip__3A4CA8FD">
+      <End Role="Script" EntitySet="Scripts" />
+      <End Role="PatientUsage" EntitySet="PatientUsages" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="user">
     <Key>
@@ -86,6 +112,8 @@
     <Property Name="GenericName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="MedicalName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Scripts" Relationship="hackathonModel.FK__Scripts__Medicat__6FE99F9F" FromRole="Medication" ToRole="Script" />
+    <NavigationProperty Name="PatientDenieds" Relationship="hackathonModel.FK__PatientDe__Medic__40058253" FromRole="Medication" ToRole="PatientDenied" />
+    <NavigationProperty Name="PatientUsages" Relationship="hackathonModel.FK__PatientUs__Medic__3B40CD36" FromRole="Medication" ToRole="PatientUsage" />
   </EntityType>
   <EntityType Name="MpToPatient">
     <Key>
@@ -110,6 +138,8 @@
     <NavigationProperty Name="user" Relationship="hackathonModel.FK__Patient__UserId__5CD6CB2B" FromRole="Patient" ToRole="user" />
     <NavigationProperty Name="Scripts" Relationship="hackathonModel.FK__Scripts__Patient__6EF57B66" FromRole="Patient" ToRole="Script" />
     <Property Name="AtRisk" Type="Boolean" />
+    <NavigationProperty Name="PatientDenieds" Relationship="hackathonModel.FK__PatientDe__Patie__3E1D39E1" FromRole="Patient" ToRole="PatientDenied" />
+    <NavigationProperty Name="PatientUsages" Relationship="hackathonModel.FK__PatientUs__Patie__395884C4" FromRole="Patient" ToRole="PatientUsage" />
   </EntityType>
   <EntityType Name="Pharmacy">
     <Key>
@@ -142,6 +172,8 @@
     <NavigationProperty Name="Patient" Relationship="hackathonModel.FK__Scripts__Patient__6EF57B66" FromRole="Script" ToRole="Patient" />
     <NavigationProperty Name="Pharmacy" Relationship="hackathonModel.FK__Scripts__PharmId__70DDC3D8" FromRole="Script" ToRole="Pharmacy" />
     <NavigationProperty Name="PharmacyEvents" Relationship="hackathonModel.FK__PharmacyE__Scrip__367C1819" FromRole="Script" ToRole="PharmacyEvent" />
+    <NavigationProperty Name="PatientDenieds" Relationship="hackathonModel.FK__PatientDe__Scrip__3F115E1A" FromRole="Script" ToRole="PatientDenied" />
+    <NavigationProperty Name="PatientUsages" Relationship="hackathonModel.FK__PatientUs__Scrip__3A4CA8FD" FromRole="Script" ToRole="PatientUsage" />
   </EntityType>
   <Association Name="FK__MedicalPr__UserI__68487DD7">
     <End Type="hackathonModel.user" Role="user" Multiplicity="0..1" />
@@ -269,6 +301,105 @@
         <PropertyRef Name="ScriptId" />
       </Principal>
       <Dependent Role="PharmacyEvent">
+        <PropertyRef Name="ScriptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PatientDenied">
+    <Key>
+      <PropertyRef Name="PatientDeniedId" />
+    </Key>
+    <Property Name="PatientDeniedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientId" Type="Int32" />
+    <Property Name="ScriptId" Type="Int32" />
+    <Property Name="MedicationId" Type="Int32" />
+    <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateDenied" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Medication" Relationship="hackathonModel.FK__PatientDe__Medic__40058253" FromRole="PatientDenied" ToRole="Medication" />
+    <NavigationProperty Name="Patient" Relationship="hackathonModel.FK__PatientDe__Patie__3E1D39E1" FromRole="PatientDenied" ToRole="Patient" />
+    <NavigationProperty Name="Script" Relationship="hackathonModel.FK__PatientDe__Scrip__3F115E1A" FromRole="PatientDenied" ToRole="Script" />
+  </EntityType>
+  <EntityType Name="PatientUsage">
+    <Key>
+      <PropertyRef Name="PatientUsageId" />
+    </Key>
+    <Property Name="PatientUsageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientId" Type="Int32" />
+    <Property Name="ScriptId" Type="Int32" />
+    <Property Name="MedicationId" Type="Int32" />
+    <Property Name="DateTaken" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Medication" Relationship="hackathonModel.FK__PatientUs__Medic__3B40CD36" FromRole="PatientUsage" ToRole="Medication" />
+    <NavigationProperty Name="Patient" Relationship="hackathonModel.FK__PatientUs__Patie__395884C4" FromRole="PatientUsage" ToRole="Patient" />
+    <NavigationProperty Name="Script" Relationship="hackathonModel.FK__PatientUs__Scrip__3A4CA8FD" FromRole="PatientUsage" ToRole="Script" />
+  </EntityType>
+  <Association Name="FK__PatientDe__Medic__40058253">
+    <End Type="hackathonModel.Medication" Role="Medication" Multiplicity="0..1" />
+    <End Type="hackathonModel.PatientDenied" Role="PatientDenied" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medication">
+        <PropertyRef Name="MedicationId" />
+      </Principal>
+      <Dependent Role="PatientDenied">
+        <PropertyRef Name="MedicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientUs__Medic__3B40CD36">
+    <End Type="hackathonModel.Medication" Role="Medication" Multiplicity="0..1" />
+    <End Type="hackathonModel.PatientUsage" Role="PatientUsage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medication">
+        <PropertyRef Name="MedicationId" />
+      </Principal>
+      <Dependent Role="PatientUsage">
+        <PropertyRef Name="MedicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientDe__Patie__3E1D39E1">
+    <End Type="hackathonModel.Patient" Role="Patient" Multiplicity="0..1" />
+    <End Type="hackathonModel.PatientDenied" Role="PatientDenied" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientId" />
+      </Principal>
+      <Dependent Role="PatientDenied">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientUs__Patie__395884C4">
+    <End Type="hackathonModel.Patient" Role="Patient" Multiplicity="0..1" />
+    <End Type="hackathonModel.PatientUsage" Role="PatientUsage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientId" />
+      </Principal>
+      <Dependent Role="PatientUsage">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientDe__Scrip__3F115E1A">
+    <End Type="hackathonModel.Script" Role="Script" Multiplicity="0..1" />
+    <End Type="hackathonModel.PatientDenied" Role="PatientDenied" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Script">
+        <PropertyRef Name="ScriptId" />
+      </Principal>
+      <Dependent Role="PatientDenied">
+        <PropertyRef Name="ScriptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientUs__Scrip__3A4CA8FD">
+    <End Type="hackathonModel.Script" Role="Script" Multiplicity="0..1" />
+    <End Type="hackathonModel.PatientUsage" Role="PatientUsage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Script">
+        <PropertyRef Name="ScriptId" />
+      </Principal>
+      <Dependent Role="PatientUsage">
         <PropertyRef Name="ScriptId" />
       </Dependent>
     </ReferentialConstraint>
