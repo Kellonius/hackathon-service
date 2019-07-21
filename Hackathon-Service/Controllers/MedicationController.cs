@@ -185,5 +185,64 @@ namespace Hackathon_Service.Controllers
 
             return monthlyReports;
         }
+
+        /// <summary>
+        /// Create list of yearly reports for each year.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("UnpickedUpPrescriptionsByYear")]
+        public List<YearlyReport> UnpickedUpPrescriptionsByYear()
+        {
+            var scripts = _medicationRepository.GetPrescriptions().Where(s => s.DateIssued.HasValue)
+                .OrderBy(s => s.DateIssued).ToList();
+            var years = new List<string>();
+            var yearlyReports = new List<YearlyReport>();
+            var monthlyReports = new List<MonthlyReport>();
+
+            foreach (var script in scripts)
+            {
+                var monthInt = script.DateIssued.Value.Month;
+                var month = Months[monthInt - 1];
+                var year = script.DateIssued.Value.Year;
+
+                if (!years.Contains(year.ToString()))
+                {
+                    years.Add(year.ToString());
+                }
+
+                if (monthlyReports.Any(m => m.Month == month && m.Year == year.ToString()))
+                {
+                    continue;
+                }
+
+                var scriptsForMonth = scripts.Where(s =>
+                    s.DateIssued >= new DateTime(year, monthInt, 1) &&
+                    s.DateIssued < new DateTime(year, monthInt, 1).AddMonths(1));
+
+                monthlyReports.Add(new MonthlyReport()
+                {
+                    Month = month,
+                    Year = year.ToString(),
+                    PickedUpPrescriptions = scriptsForMonth.Count(s => s.DatePickedUp != null),
+                    UnPickedUpPrescriptions = scriptsForMonth.Count(s => s.DatePickedUp == null)
+                });
+            }
+
+            foreach(var year in years)
+            {
+                var monthlyReportsForYear = monthlyReports.Where(x => x.Year == year).ToList();
+                var yearlyReport = new YearlyReport()
+                {
+                    Year = year,
+                    MonthlyReports = monthlyReportsForYear
+                };
+                yearlyReports.Add(yearlyReport);
+            }
+
+            return yearlyReports;
+
+
+        }
     }
 }
