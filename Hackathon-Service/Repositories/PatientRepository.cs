@@ -59,6 +59,7 @@ namespace Hackathon_Service.Repositories
             {
                 var script = context.Scripts.FirstOrDefault(x => x.ScriptId == scriptId);
                 script.DatePickedUp = DateTime.Now;
+                script.DateFilled = script.DateFilled == null ? DateTime.Now : script.DateFilled;
                 context.SaveChanges();
                 context.Dispose();
             }
