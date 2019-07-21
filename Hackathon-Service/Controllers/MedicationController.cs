@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Hackathon_DataAccess;
@@ -155,6 +156,8 @@ namespace Hackathon_Service.Controllers
         [Route("UnpickedUpPrescriptionsByMonth")]
         public List<MonthlyReport> UnpickedUpPrescriptionsByMonth()
         {
+            Thread.Sleep(500); // For effect
+            
             var scripts = _medicationRepository.GetPrescriptions().Where(s => s.DateIssued.HasValue)
                 .OrderBy(s => s.DateIssued).ToList();
             var monthlyReports = new List<MonthlyReport>();
@@ -194,6 +197,8 @@ namespace Hackathon_Service.Controllers
         [Route("UnpickedUpPrescriptionsByYear")]
         public List<YearlyReport> UnpickedUpPrescriptionsByYear()
         {
+            Thread.Sleep(500); // For effect
+            
             var scripts = _medicationRepository.GetPrescriptions().Where(s => s.DateIssued.HasValue)
                 .OrderBy(s => s.DateIssued).ToList();
             var years = new List<string>();
@@ -250,6 +255,8 @@ namespace Hackathon_Service.Controllers
         [Route("LengthOfTimeToPickUpPrescriptions")]
         public List<TimingReport> LengthOfTimeToPickUpPrescriptions()
         {
+            Thread.Sleep(500); // For effect
+            
             var scripts = _medicationRepository.GetPrescriptions().Where(s => s.DateIssued.HasValue)
                 .OrderBy(s => s.DateIssued).ToList();
 
