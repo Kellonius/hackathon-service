@@ -76,7 +76,7 @@ namespace Hackathon_Service.Repositories
             return savedPasswordHash;
         }
 
-        public bool UnHashPassword(string saved, string pass)
+        public bool ValidatePassword(string saved, string pass)
         {
             byte[] hashBytes = Convert.FromBase64String(saved);
 

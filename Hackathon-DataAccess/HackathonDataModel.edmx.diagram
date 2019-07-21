@@ -23,6 +23,14 @@
         <AssociationConnector Association="hackathonModel.FK__Scripts__PharmId__70DDC3D8" />
         <EntityTypeShape EntityType="hackathonModel.PharmacyEvent" Width="1.5" PointX="7.5" PointY="8" />
         <AssociationConnector Association="hackathonModel.FK__PharmacyE__Scrip__367C1819" />
+        <EntityTypeShape EntityType="hackathonModel.PatientDenied" Width="1.5" PointX="7.5" PointY="4.375" />
+        <EntityTypeShape EntityType="hackathonModel.PatientUsage" Width="1.5" PointX="10.5" PointY="5.5" />
+        <AssociationConnector Association="hackathonModel.FK__PatientDe__Medic__40058253" />
+        <AssociationConnector Association="hackathonModel.FK__PatientUs__Medic__3B40CD36" />
+        <AssociationConnector Association="hackathonModel.FK__PatientDe__Patie__3E1D39E1" />
+        <AssociationConnector Association="hackathonModel.FK__PatientUs__Patie__395884C4" />
+        <AssociationConnector Association="hackathonModel.FK__PatientDe__Scrip__3F115E1A" />
+        <AssociationConnector Association="hackathonModel.FK__PatientUs__Scrip__3A4CA8FD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

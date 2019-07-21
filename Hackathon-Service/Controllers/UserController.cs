@@ -9,7 +9,6 @@ using System.Web.Http.Cors;
 using Hackathon_DataAccess;
 using Hackathon_Service.Models.Users.Responses;
 using Hackathon_Service.Repositories;
-using Hackathon_Service.Repositories.Interfaces;
 
 namespace Hackathon_Service.Controllers
 {
@@ -30,6 +29,11 @@ namespace Hackathon_Service.Controllers
             medicalProfessionalRepository = new MedicalProfessionalRepository();
         }
         
+        /// <summary>
+        /// Create a new user for system with a UserCreationRequest.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Route("CreateUser")]
         public IHttpActionResult createUser(UserCreationRequest request)
         {
@@ -55,6 +59,11 @@ namespace Hackathon_Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Create a new patient with a PatientCreationRequest
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Route("CreatePatient")]
         public IHttpActionResult createPatient(PatientCreationRequest request)
         {
@@ -80,6 +89,11 @@ namespace Hackathon_Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Create a new pharmacy with a PharmacyCreationRequest
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Route("CreatePharmacy")]
         public IHttpActionResult createPharmacy(PharmacyCreationRequest request)
         {
@@ -105,6 +119,11 @@ namespace Hackathon_Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Create a new Medical Professional with a MedicalProfessionalRequest
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Route("CreateMedicalProfessional")]
         public IHttpActionResult createMedicalProfessional(MedicalProfessionalRequest request)
         {
@@ -130,6 +149,11 @@ namespace Hackathon_Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Login as a user passing in a UserLoginRequest
+        /// </summary>
+        /// <param name="userLoginRequest"></param>
+        /// <returns></returns>
         [Route("LoginUser")]
         public UserResponse loginUser(UserLoginRequest userLoginRequest)
         {
@@ -145,7 +169,7 @@ namespace Hackathon_Service.Controllers
                         "Email supplied does not match account in our records.");
                         throw new HttpResponseException(response);
                     }
-                    var success = unHashPassword(user.password, userLoginRequest.password);
+                    var success = userRepository.ValidatePassword(user.password, userLoginRequest.password);
 
                     if (!success)
                     {
@@ -169,91 +193,6 @@ namespace Hackathon_Service.Controllers
             }
 
         }
-
-        //[HttpPost]
-        //[Route("GetUserPreferences")]
-        //public UserPreferencesResponse getUserPreferences(UserIdRequest request)
-        //{
-        //    try
-        //    {
-        //        using (var context = new RetroVizEntities())
-        //        {
-        //            var preferences = context.user_preferences.Where(x => x.user_id == request.userId).FirstOrDefault();
-        //            return new UserPreferencesResponse()
-        //            {
-        //                userId = Convert.ToInt32(preferences.user_id),
-        //                colorCode = preferences.color_code
-        //            };
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        private string hashPassword(string word)
-        {
-            byte[] salt;
-            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
-            var pbkdsf2 = new Rfc2898DeriveBytes(word, salt, 10000);
-
-            byte[] hash = pbkdsf2.GetBytes(20);
-
-            byte[] hashBytes = new byte[36];
-
-            Array.Copy(salt, 0, hashBytes, 0, 16);
-            Array.Copy(hash, 0, hashBytes, 16, 20);
-
-            string savedPasswordHash = Convert.ToBase64String(hashBytes);
-
-            return savedPasswordHash;
-        }
-
-        private bool unHashPassword(string saved, string pass)
-        {
-            byte[] hashBytes = Convert.FromBase64String(saved);
-
-            byte[] salt = new byte[16];
-
-            Array.Copy(hashBytes, 0, salt, 0, 16);
-
-            var pbkdsf2 = new Rfc2898DeriveBytes(pass, salt, 10000);
-
-            byte[] hash = pbkdsf2.GetBytes(20);
-
-            int ok = 1;
-
-            for (int i = 0; i < 20; i++)
-            {
-                if (hashBytes[i + 16] != hash[i])
-                {
-                    ok = 0;
-                }
-            }
-
-            if (ok == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-       // private string randomColor()
-       // {
-       //     var hex = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
-       //     var color = "#";
-       //     Random random = new Random();
-       //
-       //     for (int i = 0; i < 6; i++)
-       //     {
-       //         color += hex[random.Next(0, 15)];
-       //     }
-       //     return color;
-       // }
+        
     }
 }

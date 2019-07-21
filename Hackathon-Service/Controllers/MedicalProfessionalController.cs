@@ -7,7 +7,6 @@ using Hackathon_DataAccess;
 using Hackathon_Service.Models;
 using Hackathon_Service.Models.Users.Requests;
 using Hackathon_Service.Repositories;
-using Hackathon_Service.Repositories.Interfaces;
 using Hackathon_Service.Models.Epic;
 using System.Collections.Generic;
 using Hackathon_Service.Models.Users.Responses;
@@ -71,6 +70,11 @@ namespace Hackathon_Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all data on a Medical Professional by passing in the user email.
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetMedicalProfessionalData")]
         public MedicalProfessionalDataResponse GetMedicalProfessionalData(string userEmail)
@@ -78,12 +82,22 @@ namespace Hackathon_Service.Controllers
             return medicalProfessionalRepository.getAllMedicalProfessionalData(userEmail);
         }
 
+        /// <summary>
+        /// Assign an existing patient to an MP by passing in the MPId and the PatientId
+        /// </summary>
+        /// <param name="medicalProfessionalId"></param>
+        /// <param name="patientId"></param>
         [Route("AssignPatientToMp")]
         public void assignPatientToMp(int medicalProfessionalId, int patientId)
         {
             medicalProfessionalRepository.assignPatientToMp(medicalProfessionalId, patientId);
         }
 
+        /// <summary>
+        /// Get all patients associated to a medical professional by passing in that MP's email address.
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetPatientsForMP")]
         public List<PatientDataResponse> getPatientsForMP(string userEmail)
@@ -93,7 +107,11 @@ namespace Hackathon_Service.Controllers
             return results;
         }
 
-
+        /// <summary>
+        /// Get a list of all existing patients that aren't associated to your medical professional by passing the MP email address
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetExistingNewPatientsForMP")]
         public List<PatientDataResponse> getExistingNewPatientsForMP(string userEmail)
@@ -103,6 +121,10 @@ namespace Hackathon_Service.Controllers
             return results;
         }
 
+        /// <summary>
+        /// Assign a medication to a specified patient assigned to your MP by passing in a script request.
+        /// </summary>
+        /// <param name="request"></param>
         [Route("AssignMedication")]
         public void assignMedication(ScriptRequest request)
         {
@@ -117,6 +139,10 @@ namespace Hackathon_Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Give Medical Professional ability to fill medication if needed.
+        /// </summary>
+        /// <param name="scriptId"></param>
         [Route("FillMedication")]
         public void fillMedication(int scriptId)
         {

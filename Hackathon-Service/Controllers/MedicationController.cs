@@ -29,6 +29,11 @@ namespace Hackathon_Service.Controllers
             _medicationRepository = new MedicationRepository();
         }
 
+        /// <summary>
+        /// Get all medications by patient by passing in a MedicationDataRequest
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetMedications")]
         public List<MedicationModel> GetMedications(MedicationDataRequest request)
@@ -37,6 +42,18 @@ namespace Hackathon_Service.Controllers
                 .ToList();
         }
 
+        [HttpGet]
+        [Route("GetMedicationsWithDosages")]
+        public List<MedicationDosage> GetMedicationsWithDosages(int patientId)
+        {
+            return _medicationRepository.GetMedicationDosagesByPatient(patientId).ToList();
+        }
+
+        /// <summary>
+        /// Get the specific prescriptions for a patient by passing the medications and patient info in the MedicaitonPrescriptionRequest
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetMedicationPrescriptions")]
         public List<ScriptModel> GetMedicationPrescriptions(MedicationPrescriptionRequest request)
@@ -45,12 +62,22 @@ namespace Hackathon_Service.Controllers
                 .Select(m => new ScriptModel(m)).ToList();
         }
 
+        /// <summary>
+        /// Get all incoming prescriptions for givent patient.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetIncomingPrescriptions")]
         public List<PatientScript> GetIncomingPrescriptions()
         {
             return _medicationRepository.GetIncomingPrescriptions();
         }
+
+        /// <summary>
+        /// Add an over the counter medication to your list of scripts.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("AddMedication")]
         public IHttpActionResult AddMedication(MedicationAddRequest request)
@@ -67,7 +94,10 @@ namespace Hackathon_Service.Controllers
                 
         }
 
-
+        /// <summary>
+        /// Get all outgoing prescriptions for a patient.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetOutgoingPrescriptions")]
         public List<PatientScript> GetOutgoingPrescriptions()
@@ -75,6 +105,11 @@ namespace Hackathon_Service.Controllers
             return _medicationRepository.GetOutgoingPrescriptions();
         }
 
+        /// <summary>
+        /// Mark your prescription as filled.
+        /// </summary>
+        /// <param name="prescriptionIds"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("MarkPrescriptionsAsFilled")]
         public bool MarkPrescriptionsAsFilled(List<int> prescriptionIds)
@@ -91,6 +126,11 @@ namespace Hackathon_Service.Controllers
             return true;
         }
 
+        /// <summary>
+        /// Mark an individual prescription as picked up.
+        /// </summary>
+        /// <param name="prescriptionIds"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("MarkPrescriptionsAsPickedUp")]
         public bool MarkPrescriptionsAsPickedUp(List<int> prescriptionIds)
@@ -107,7 +147,10 @@ namespace Hackathon_Service.Controllers
             return true;
         }
 
-
+        /// <summary>
+        /// Mark a prescription as being unpicked after a month of time has gone by for reporting purposes.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("UnpickedUpPrescriptionsByMonth")]
         public List<MonthlyReport> UnpickedUpPrescriptionsByMonth()

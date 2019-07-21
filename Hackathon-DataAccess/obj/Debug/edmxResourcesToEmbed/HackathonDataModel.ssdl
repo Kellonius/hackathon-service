@@ -37,6 +37,27 @@
     <Property Name="Gender" Type="nvarchar" MaxLength="30" />
     <Property Name="AtRisk" Type="bit" />
   </EntityType>
+  <EntityType Name="PatientDenied">
+    <Key>
+      <PropertyRef Name="PatientDeniedId" />
+    </Key>
+    <Property Name="PatientDeniedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientId" Type="int" />
+    <Property Name="ScriptId" Type="int" />
+    <Property Name="MedicationId" Type="int" />
+    <Property Name="Reason" Type="nvarchar(max)" />
+    <Property Name="DateDenied" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PatientUsage">
+    <Key>
+      <PropertyRef Name="PatientUsageId" />
+    </Key>
+    <Property Name="PatientUsageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientId" Type="int" />
+    <Property Name="ScriptId" Type="int" />
+    <Property Name="MedicationId" Type="int" />
+    <Property Name="DateTaken" Type="datetime" />
+  </EntityType>
   <EntityType Name="Pharmacy">
     <Key>
       <PropertyRef Name="PharmId" />
@@ -131,6 +152,78 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__PatientDe__Medic__40058253">
+    <End Role="Medication" Type="Self.Medication" Multiplicity="0..1" />
+    <End Role="PatientDenied" Type="Self.PatientDenied" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medication">
+        <PropertyRef Name="MedicationId" />
+      </Principal>
+      <Dependent Role="PatientDenied">
+        <PropertyRef Name="MedicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientDe__Patie__3E1D39E1">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="PatientDenied" Type="Self.PatientDenied" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientId" />
+      </Principal>
+      <Dependent Role="PatientDenied">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientDe__Scrip__3F115E1A">
+    <End Role="Scripts" Type="Self.Scripts" Multiplicity="0..1" />
+    <End Role="PatientDenied" Type="Self.PatientDenied" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Scripts">
+        <PropertyRef Name="ScriptId" />
+      </Principal>
+      <Dependent Role="PatientDenied">
+        <PropertyRef Name="ScriptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientUs__Medic__3B40CD36">
+    <End Role="Medication" Type="Self.Medication" Multiplicity="0..1" />
+    <End Role="PatientUsage" Type="Self.PatientUsage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medication">
+        <PropertyRef Name="MedicationId" />
+      </Principal>
+      <Dependent Role="PatientUsage">
+        <PropertyRef Name="MedicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientUs__Patie__395884C4">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="PatientUsage" Type="Self.PatientUsage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientId" />
+      </Principal>
+      <Dependent Role="PatientUsage">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientUs__Scrip__3A4CA8FD">
+    <End Role="Scripts" Type="Self.Scripts" Multiplicity="0..1" />
+    <End Role="PatientUsage" Type="Self.PatientUsage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Scripts">
+        <PropertyRef Name="ScriptId" />
+      </Principal>
+      <Dependent Role="PatientUsage">
+        <PropertyRef Name="ScriptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Pharmacy__UserId__2645B050">
     <End Role="users" Type="Self.users" Multiplicity="0..1" />
     <End Role="Pharmacy" Type="Self.Pharmacy" Multiplicity="*" />
@@ -208,6 +301,8 @@
     <EntitySet Name="Medication" EntityType="Self.Medication" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MpToPatient" EntityType="Self.MpToPatient" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientDenied" EntityType="Self.PatientDenied" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientUsage" EntityType="Self.PatientUsage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pharmacy" EntityType="Self.Pharmacy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PharmacyEvents" EntityType="Self.PharmacyEvents" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Scripts" EntityType="Self.Scripts" Schema="dbo" store:Type="Tables" />
@@ -227,6 +322,30 @@
     <AssociationSet Name="FK__Patient__UserId__2180FB33" Association="Self.FK__Patient__UserId__2180FB33">
       <End Role="users" EntitySet="users" />
       <End Role="Patient" EntitySet="Patient" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientDe__Medic__40058253" Association="Self.FK__PatientDe__Medic__40058253">
+      <End Role="Medication" EntitySet="Medication" />
+      <End Role="PatientDenied" EntitySet="PatientDenied" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientDe__Patie__3E1D39E1" Association="Self.FK__PatientDe__Patie__3E1D39E1">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="PatientDenied" EntitySet="PatientDenied" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientDe__Scrip__3F115E1A" Association="Self.FK__PatientDe__Scrip__3F115E1A">
+      <End Role="Scripts" EntitySet="Scripts" />
+      <End Role="PatientDenied" EntitySet="PatientDenied" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientUs__Medic__3B40CD36" Association="Self.FK__PatientUs__Medic__3B40CD36">
+      <End Role="Medication" EntitySet="Medication" />
+      <End Role="PatientUsage" EntitySet="PatientUsage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientUs__Patie__395884C4" Association="Self.FK__PatientUs__Patie__395884C4">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="PatientUsage" EntitySet="PatientUsage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientUs__Scrip__3A4CA8FD" Association="Self.FK__PatientUs__Scrip__3A4CA8FD">
+      <End Role="Scripts" EntitySet="Scripts" />
+      <End Role="PatientUsage" EntitySet="PatientUsage" />
     </AssociationSet>
     <AssociationSet Name="FK__Pharmacy__UserId__2645B050" Association="Self.FK__Pharmacy__UserId__2645B050">
       <End Role="users" EntitySet="users" />

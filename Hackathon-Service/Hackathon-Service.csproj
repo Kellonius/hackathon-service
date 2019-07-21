@@ -200,6 +200,7 @@
     <Compile Include="Models\Epic\MedicationOrder.cs" />
     <Compile Include="Models\Medication\MedicationAddRequest.cs" />
     <Compile Include="Models\Medication\MedicationDataRequest.cs" />
+    <Compile Include="Models\Medication\MedicationDosage.cs" />
     <Compile Include="Models\Medication\MedicationModel.cs" />
     <Compile Include="Models\Medication\MedicationPrescriptionRequest.cs" />
     <Compile Include="Models\Medication\PatientScript.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Models\Users\PatientDataRequest.cs" />
     <Compile Include="Models\Users\PatientUpdateRequest.cs" />
     <Compile Include="Models\Users\Requests\MedicalProfessionalRequest.cs" />
+    <Compile Include="Models\Users\Requests\PatientDeniedMedicationRequest.cs" />
     <Compile Include="Models\Users\Requests\PharmacyCreationRequest.cs" />
     <Compile Include="Models\Users\Requests\PatientCreationRequest.cs" />
     <Compile Include="Models\Epic\Name.cs" />
@@ -228,7 +230,6 @@
     <Compile Include="Models\Users\Responses\UserResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\MonthlyReport.cs" />
-    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\MedicalProfessionalRepository.cs" />
     <Compile Include="Repositories\MedicationRepository.cs" />
     <Compile Include="Repositories\PharmacyRepository.cs" />

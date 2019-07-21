@@ -18,6 +18,8 @@ namespace Hackathon_DataAccess
         public Script()
         {
             this.PharmacyEvents = new HashSet<PharmacyEvent>();
+            this.PatientDenieds = new HashSet<PatientDenied>();
+            this.PatientUsages = new HashSet<PatientUsage>();
         }
     
         public int ScriptId { get; set; }
@@ -38,5 +40,9 @@ namespace Hackathon_DataAccess
         public virtual Pharmacy Pharmacy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PharmacyEvent> PharmacyEvents { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientDenied> PatientDenieds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientUsage> PatientUsages { get; set; }
     }
 }
